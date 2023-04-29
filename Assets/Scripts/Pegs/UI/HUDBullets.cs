@@ -3,22 +3,18 @@ using UnityEngine.UI;
 
 public class HUDBullets : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private Text bulletsText;
-    [SerializeField] private Text maxBulletsText;
-
-    [Header("Values")]
     [SerializeField] private IntegerVariable bulletCount;
-    [SerializeField] private IntegerVariable maxBulletCount;
+
+    private Text bulletText;
+
+    private void Start()
+    {
+        bulletText = GetComponent<Text>();
+        OnBulletCountChange();
+    }
 
     public void OnBulletCountChange()
     {
-        bulletsText.text = $"{bulletCount.value}";
-
-    }
-
-    public void OnMaxBulletCountChange()
-    {
-        maxBulletsText.text = $"{maxBulletCount.value}";
+        bulletText.text = $"{bulletCount.value}";
     }
 }

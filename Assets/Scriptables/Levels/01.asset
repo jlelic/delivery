@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a1173fed28ae14091ccdc2d8ec6ceb, type: 3}
   m_Name: 01
   m_EditorClassIdentifier: 
+  jokeSetup: It is what it is
   maxBullets: 5

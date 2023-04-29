@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731a56b28468d4742a28012f0f88aad2, type: 3}
   m_Name: gravityScale
   m_EditorClassIdentifier: 
-  resetOnSceneChange: 0
+  resetOnSceneChange: 1
   onChangeEvent:
     m_PersistentCalls:
       m_Calls: []

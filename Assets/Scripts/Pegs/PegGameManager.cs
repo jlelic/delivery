@@ -22,42 +22,44 @@ public class PegGameManager : MonoBehaviour
     #endregion
 
     [Header("Prefabs")]
-    [SerializeField] private PegBullet pegPrefab;
+    [SerializeField] private PegBullet bulletPrefab;
+    [SerializeField] private Transform bulletInitPos;
 
     [Header("Data")]
     [SerializeField] private IntegerVariable bulletCount;
+    [SerializeField] private IntegerVariable maxBulletCount;
 
-    private HashSet<LETTER> collectedLetters;
+    private HashSet<LETTER> collectedLetters = new HashSet<LETTER>();
 
-    private void Awake()
+    private GameObject currentLayout;
+
+    public void SetNewLevel(int maxBullets, GameObject layoutPrefab)
     {
-        collectedLetters = new HashSet<LETTER>();
-        Instantiate<PegBullet>(pegPrefab);
+        collectedLetters.Clear();
+        maxBulletCount.SetValue(maxBullets);
+        bulletCount.SetValue(maxBullets);
+        Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);
+        currentLayout = Instantiate(layoutPrefab, transform);
     }
 
     public void OnPegBulletDestroyed()
     {
         if (bulletCount.value > 0)
         {
-            Instantiate<PegBullet>(pegPrefab);
+            Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);
         }
         else
         {
             // End Peg gameplay
+            Destroy(currentLayout.gameObject);
+            currentLayout = null;
             // Start Joke creation gameplay
-            Debug.Log("Collected letters:");
-            foreach (LETTER letter in collectedLetters)
-            {
-                Debug.Log(letter.ToString());
-            }
+            GameManager.Instance.ShowJokeCreator(collectedLetters);
         }
     }
 
     public void AddLetter(LETTER newLetter)
     {
-        if (!collectedLetters.Contains(newLetter))
-        {
-            collectedLetters.Add(newLetter);
-        }
+        collectedLetters.Add(newLetter);
     }
 }

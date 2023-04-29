@@ -81,7 +81,7 @@ TextureImporter:
       213: 7303193327651535916
     second: font_25
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -102,6 +102,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -140,6 +141,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -227,6 +229,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -796,6 +810,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      font_0: -1401874176895988017
+      font_1: -6787896269430008760
+      font_10: 6348170711374592664
+      font_11: 1538424140462886368
+      font_12: -7624602737638586889
+      font_13: 6660220790318646868
+      font_14: -7318864361395112647
+      font_15: 3830642159544845040
+      font_16: 3772937518185825702
+      font_17: -75143286191810230
+      font_18: -5962198388926122564
+      font_19: -5357453441090490021
+      font_2: -6630971469653654122
+      font_20: -2743576862614557664
+      font_21: -5423386022696304102
+      font_22: 8156438877833951428
+      font_23: 7814087314376559365
+      font_24: -7269697945286533571
+      font_25: 7303193327651535916
+      font_3: 3155708254655358991
+      font_4: -1809877987737587854
+      font_5: -8478194216507768359
+      font_6: -239845697509426971
+      font_7: -2432296197583570664
+      font_8: 8988950123309387204
+      font_9: -5733437377142980995
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
