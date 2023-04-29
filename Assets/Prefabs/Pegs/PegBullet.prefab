@@ -1188,7 +1188,7 @@ GameObject:
   - component: {fileID: 7522795471306937473}
   - component: {fileID: 7522795471306937478}
   - component: {fileID: 7522795471306937475}
-  - component: {fileID: 7522795471306937474}
+  - component: {fileID: 6014287478229330650}
   m_Layer: 0
   m_Name: PegBullet
   m_TagString: Untagged
@@ -1301,7 +1301,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &7522795471306937474
+--- !u!114 &6014287478229330650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7522795471306937479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a357a5c9c826374b8b4b65c804bc381, type: 3}
+  m_Script: {fileID: 11500000, guid: c80173484013d1c42a339dbd1755e44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: {fileID: 11400000, guid: 8fcd094b6091f9e49aaefa8337074e86, type: 2}
