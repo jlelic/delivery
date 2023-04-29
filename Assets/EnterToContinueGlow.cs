@@ -7,11 +7,12 @@ public class EnterToContinueGlow : MonoBehaviour
     TMPro.TMP_Text text;
     bool goingUp;
     float value = 1;
-    float diff = 0.01f;
+    float diff = 0.001f;
 
     void Start()
     {
-
+        text = GetComponent<TMPro.TMP_Text>();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,6 +30,11 @@ public class EnterToContinueGlow : MonoBehaviour
         else
         {
             value -= diff;
+            if (value <= 0.3f)
+            {
+                value = 0.3f;
+                goingUp = true;
+            }
         }
 
         text.color = new Color(value, value, value);

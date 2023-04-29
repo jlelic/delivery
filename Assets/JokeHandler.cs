@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Text;
+using UnityEngine.UI;
 
 public class JokeHandler : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class JokeHandler : MonoBehaviour
     TMP_Text setupText;
     [SerializeField]
     TMP_InputField punchlineInputField;
+    [SerializeField]
+    TMP_Text punchlineText;
     [SerializeField]
     TMP_Text ratingText;
     [SerializeField]
@@ -27,6 +30,7 @@ public class JokeHandler : MonoBehaviour
     GameObject PegBoard;
 
     bool canSubmit;
+    bool canContinue;
     HashSet<char> allowedChars;
     List<Transform> reactionZones;
     RectTransform setupRectTransform;
@@ -34,6 +38,8 @@ public class JokeHandler : MonoBehaviour
     Vector2 setupTargetPosition;
     Vector2 punchlineTargetPosition;
     Vector3 pegBoardTargetPosition;
+    Image setupImage;
+    Image punchlineImage;
 
     private void Awake()
     {
@@ -53,6 +59,8 @@ public class JokeHandler : MonoBehaviour
         pegBoardTargetPosition = PegBoard.transform.position;
         punchlineRectTransform = punchlineInputField.GetComponent<RectTransform>();
         punchlineTargetPosition = punchlineRectTransform.anchoredPosition;
+        setupImage = setupBubble.GetComponent<Image>();
+        punchlineImage = punchlineInputField.GetComponent<Image>();
     }
 
     void FilterInput()
@@ -73,11 +81,22 @@ public class JokeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canSubmit && Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            canSubmit = false;
-            punchlineInputField.interactable = false;
-            StartCoroutine(SubmitJoke());
+            if (canSubmit)
+            {
+                canSubmit = false;
+                punchlineInputField.interactable = false;
+                StartCoroutine(SubmitJoke());
+            }
+            else if (canContinue)
+            {
+                enterToContinue.gameObject.SetActive(false);
+                Utils.TweenColor(punchlineImage, new Color(1f, 1f, 1f, 0f));
+                Utils.TweenColor(punchlineText, new Color(1f, 1f, 1f, 0f));
+                Utils.TweenColor(setupImage, new Color(1f, 1f, 1f, 0f));
+                Utils.TweenColor(setupText, new Color(1f, 1f, 1f, 0f));
+            }
         }
     }
 
@@ -96,7 +115,6 @@ public class JokeHandler : MonoBehaviour
         canSubmit = false;
         punchlineInputField.gameObject.SetActive(false);
         punchlineInputField.interactable = false;
-
     }
 
     public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
@@ -175,6 +193,11 @@ public class JokeHandler : MonoBehaviour
             reactionTexts[i].transform.position = reactionZones[i].transform.position;
         }
 
+        Utils.SetTimeout(this, 2, () =>
+          {
+              canContinue = true;
+              enterToContinue.gameObject.SetActive(true);
+          });
     }
 
     public static void Shuffle<T>(IList<T> list)
