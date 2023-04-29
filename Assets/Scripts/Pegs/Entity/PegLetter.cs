@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class PegLetter : MonoBehaviour
 {
     [SerializeField] private LETTER letter;
