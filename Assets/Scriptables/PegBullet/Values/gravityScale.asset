@@ -16,5 +16,5 @@ MonoBehaviour:
   onChangeEvent:
     m_PersistentCalls:
       m_Calls: []
-  initialValue: 0.1
-  value: 0.1
+  initialValue: 1
+  value: 1

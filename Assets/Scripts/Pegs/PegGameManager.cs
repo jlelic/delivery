@@ -21,8 +21,9 @@ public class PegGameManager : MonoBehaviour
 
     #endregion
 
-    [Header("Prefabs")]
+    [Header("Refs")]
     [SerializeField] private PegBullet bulletPrefab;
+    [SerializeField] private PegKeyboard pegKeyboard;
     [SerializeField] private Transform bulletInitPos;
 
     [Header("Data")]
@@ -36,8 +37,10 @@ public class PegGameManager : MonoBehaviour
     public void SetNewLevel(int maxBullets, GameObject layoutPrefab)
     {
         collectedLetters.Clear();
+        pegKeyboard.ResetKeyboard();
         maxBulletCount.SetValue(maxBullets);
         bulletCount.SetValue(maxBullets);
+
         Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);
         currentLayout = Instantiate(layoutPrefab, transform);
     }
@@ -60,6 +63,10 @@ public class PegGameManager : MonoBehaviour
 
     public void AddLetter(LETTER newLetter)
     {
-        collectedLetters.Add(newLetter);
+        if (!collectedLetters.Contains(newLetter))
+        {
+            collectedLetters.Add(newLetter);
+            pegKeyboard.ShowLetter(newLetter);
+        }
     }
 }
