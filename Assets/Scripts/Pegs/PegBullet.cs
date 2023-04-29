@@ -8,11 +8,12 @@ public class PegBullet : MonoBehaviour
 
     [SerializeField] private IntegerVariable bulletCount;
 
+    [SerializeField] private GameObject trajectoryDotsParent;
+
     private Rigidbody2D rb;
     private bool isMoving = false;
-    [SerializeField] private GameObject trajectoryDotsParent;
-    private Transform[] trajectoryDots;
 
+    private Transform[] trajectoryDots;
     private Vector2 direction;
 
     private void Awake()
@@ -33,7 +34,6 @@ public class PegBullet : MonoBehaviour
             rb.AddForce(direction.normalized * moveSpeed.value, ForceMode2D.Impulse);
             isMoving = true;
             bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
-
         }
 
     }
@@ -54,14 +54,14 @@ public class PegBullet : MonoBehaviour
         }
         trajectoryDotsParent.SetActive(true);
 
-        float t = 0f;
+        float t = 0.05f;
         foreach (Transform dot in trajectoryDots)
         {
             Vector2 pathPosition = CalculateParabolicPosition(transform.position, direction, moveSpeed.value, t);
             dot.position = new Vector3(pathPosition.x, pathPosition.y, -1f);
             t += 0.05f;
         }
-
+        CheckTrajectoryCollision();
     }
 
     private Vector2 CalculateParabolicPosition(Vector2 start, Vector2 direction, float force, float time)
@@ -70,5 +70,32 @@ public class PegBullet : MonoBehaviour
         result += direction * force * time;
         result.y += 0.5f * Physics2D.gravity.y * time * time;
         return result;
+    }
+
+    private void CheckTrajectoryCollision()
+    {
+        bool hadCollision = false;
+        for (int i = 0; i < trajectoryDots.Length - 1; i++)
+        {
+            Transform first = trajectoryDots[i];
+            Transform second = trajectoryDots[i + 1];
+
+            Vector3 distance = second.position - first.position;
+            RaycastHit2D hit = Physics2D.Raycast(first.position, distance, distance.magnitude);
+
+            if (hit && hit.collider != null)
+            {
+                hadCollision = true;
+            }
+
+            if (!hadCollision)
+            {
+                second.gameObject.SetActive(true);
+            }
+            else
+            {
+                second.gameObject.SetActive(false);
+            }
+        }
     }
 }
