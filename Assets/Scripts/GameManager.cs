@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(letter.ToString());
         }
         jokeHandler.ShowPunchlineInput(collectedLetters);
-        pegGameManager.gameObject.SetActive(false);
     }
 
     private void Start()

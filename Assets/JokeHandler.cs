@@ -20,6 +20,8 @@ public class JokeHandler : MonoBehaviour
     TMP_Text[] reactionTexts;
     [SerializeField]
     Transform reactionZoneParent;
+    [SerializeField]
+    TMP_Text enterToContinue;
 
     [SerializeField]
     GameObject PegBoard;
@@ -28,7 +30,9 @@ public class JokeHandler : MonoBehaviour
     HashSet<char> allowedChars;
     List<Transform> reactionZones;
     RectTransform setupRectTransform;
+    RectTransform punchlineRectTransform;
     Vector2 setupTargetPosition;
+    Vector2 punchlineTargetPosition;
     Vector3 pegBoardTargetPosition;
 
     private void Awake()
@@ -47,6 +51,8 @@ public class JokeHandler : MonoBehaviour
         setupRectTransform = setupBubble.GetComponent<RectTransform>();
         setupTargetPosition = setupRectTransform.anchoredPosition;
         pegBoardTargetPosition = PegBoard.transform.position;
+        punchlineRectTransform = punchlineInputField.GetComponent<RectTransform>();
+        punchlineTargetPosition = punchlineRectTransform.anchoredPosition;
     }
 
     void FilterInput()
@@ -95,6 +101,7 @@ public class JokeHandler : MonoBehaviour
 
     public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
     {
+        LeanTween.move(PegBoard, pegBoardTargetPosition + new Vector3(0, 15, 0), 1f);
         HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ' };
         foreach (var l in allowedLetters)
         {
@@ -103,10 +110,16 @@ public class JokeHandler : MonoBehaviour
             allowedChars.Add(str.ToLower()[0]);
         }
         this.allowedChars = allowedChars;
+        punchlineRectTransform.anchoredPosition = punchlineTargetPosition - new Vector2(0, 100);
         punchlineInputField.gameObject.SetActive(true);
-        punchlineInputField.interactable = true;
-        punchlineInputField.ActivateInputField();
-        canSubmit = true;
+
+        LeanTween.move(punchlineRectTransform, punchlineTargetPosition, 1);
+        Utils.SetTimeout(this, 1, () =>
+        {
+            punchlineInputField.interactable = true;
+            punchlineInputField.ActivateInputField();
+            canSubmit = true;
+        });
     }
 
     IEnumerator SubmitJoke()
@@ -132,10 +145,6 @@ public class JokeHandler : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         //        yield break;
         yield return request.SendWebRequest();
-
-        punchlineInputField.gameObject.SetActive(false);
-        punchlineInputField.interactable = true;
-        canSubmit = true;
 
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
