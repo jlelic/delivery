@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6014287478229330650, guid: 2d61963caac42804a97c6112e1c0e172, type: 3}
   pegKeyboard: {fileID: 8234655834754138485}
-  pegBoard: {fileID: 0}
+  pegBoard: {fileID: 8234655834948771143}
   bulletInitPos: {fileID: 8234655833855025323}
   bulletCount: {fileID: 11400000, guid: 3e0bcddb28d214541ac02a20627ac065, type: 2}
   maxBulletCount: {fileID: 11400000, guid: 259cc8d44008fae49aadfae0d5f7d0dd, type: 2}
