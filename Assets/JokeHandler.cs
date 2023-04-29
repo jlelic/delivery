@@ -25,6 +25,7 @@ public class JokeHandler : MonoBehaviour
     HashSet<char> allowedChars;
     List<Transform> reactionZones;
 
+
     private void Awake()
     {
         punchlineInputField.onValueChanged.AddListener(delegate { FilterInput(); });
@@ -138,13 +139,26 @@ public class JokeHandler : MonoBehaviour
 
         ratingText.text = string.Format("{0}/10", rating);
 
-        reactionZones.Sort((a, b) => UnityEngine.Random.Range(0, 2));
+        Shuffle(reactionZones);
         for (int i = 0; i < reactionTexts.Length; i++)
         {
             reactionTexts[i].text = reactions[i];
             reactionTexts[i].transform.position = reactionZones[i].transform.position;
         }
 
+    }
+
+    public static void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 
 
