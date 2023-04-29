@@ -16,10 +16,14 @@ public class PegBullet : MonoBehaviour
     private Transform[] trajectoryDots;
     private Vector2 direction;
 
+    public void OnBulletScaleChange()
+    {
+        transform.localScale = new Vector3(bulletScale.value, bulletScale.value, 1f);
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        transform.localScale = new Vector3(bulletScale.value, bulletScale.value, 1f);
 
         if (trajectoryDotsParent != null)
         {
