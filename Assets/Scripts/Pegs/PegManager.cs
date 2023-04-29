@@ -24,6 +24,7 @@ public class PegManager : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private PegBullet bulletPrefab;
     [SerializeField] private PegKeyboard pegKeyboard;
+    [SerializeField] private Transform pegBoard;
     [SerializeField] private Transform bulletInitPos;
 
     [Header("Data")]
@@ -43,7 +44,7 @@ public class PegManager : MonoBehaviour
         bulletCount.SetValue(maxBullets);
 
         Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);
-        currentLayout = Instantiate(layoutPrefab, transform);
+        currentLayout = Instantiate(layoutPrefab, pegBoard, true);
     }
 
     public void OnPegBulletDestroyed()

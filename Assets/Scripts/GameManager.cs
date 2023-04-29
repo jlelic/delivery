@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("Managers")]
-    [SerializeField] private PegManager pegGameManager;
-    [SerializeField] private JokeHandler jokeHandler;
+    [SerializeField] public PegManager pegGameManager;
+    [SerializeField] public JokeHandler jokeHandler;
 
     [SerializeField] private List<Level> levels;
 
@@ -52,9 +52,9 @@ public class GameManager : MonoBehaviour
         pegGameManager.gameObject.SetActive(false);
     }
 
-    private void Awake()
+    private void Start()
     {
-        LoadNextLevel();
+        Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
     }
 
     private void Update()

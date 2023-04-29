@@ -21,10 +21,15 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     Transform reactionZoneParent;
 
+    [SerializeField]
+    GameObject PegBoard;
+
     bool canSubmit;
     HashSet<char> allowedChars;
     List<Transform> reactionZones;
-
+    RectTransform setupRectTransform;
+    Vector2 setupTargetPosition;
+    Vector3 pegBoardTargetPosition;
 
     private void Awake()
     {
@@ -37,14 +42,21 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        setupRectTransform = setupBubble.GetComponent<RectTransform>();
+        setupTargetPosition = setupRectTransform.anchoredPosition;
+        pegBoardTargetPosition = PegBoard.transform.position;
+    }
+
     void FilterInput()
     {
         var currentValue = punchlineInputField.text;
         Debug.Log(currentValue);
         var newValueBuilder = new StringBuilder();
-        foreach(var ch in currentValue)
+        foreach (var ch in currentValue)
         {
-            if(allowedChars.Contains(ch))
+            if (allowedChars.Contains(ch))
             {
                 newValueBuilder.Append(ch);
             }
@@ -66,17 +78,25 @@ public class JokeHandler : MonoBehaviour
     public void SetUpNewLevel(int number, Level level)
     {
         setupBubble.gameObject.SetActive(true);
+        setupRectTransform.anchoredPosition = setupTargetPosition - new Vector2(100, 0);
+        LeanTween.move(setupRectTransform, setupTargetPosition, 0.7f);
+        PegBoard.transform.position = pegBoardTargetPosition + new Vector3(0, 10, 0);
         setupText.gameObject.SetActive(true);
-        setupText.text = level.data.jokeSetup;
+        setupText.text = "";
+        StartCoroutine(SlowlyFillText(setupText, level.data.jokeSetup, 0.7f, () =>
+        {
+            LeanTween.move(PegBoard, pegBoardTargetPosition, 1f);
+        }));
         canSubmit = false;
-        punchlineInputField.gameObject.SetActive(true);
+        punchlineInputField.gameObject.SetActive(false);
         punchlineInputField.interactable = false;
+
     }
 
     public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
     {
-        HashSet<char> allowedChars = new HashSet<char> { '.','\'','?','!',',', ' ' };
-        foreach(var l in allowedLetters)
+        HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ' };
+        foreach (var l in allowedLetters)
         {
             var str = l.ToString();
             allowedChars.Add(str.ToUpper()[0]);
@@ -110,7 +130,7 @@ public class JokeHandler : MonoBehaviour
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
-//        yield break;
+        //        yield break;
         yield return request.SendWebRequest();
 
         punchlineInputField.gameObject.SetActive(false);
@@ -161,6 +181,17 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
+    IEnumerator SlowlyFillText(TMP_Text tmpText, string text, float delay = 0f, Action callback = null, float speed = 0.1f)
+    {
+        tmpText.text = "";
+        yield return new WaitForSeconds(delay);
+        foreach (var ch in text)
+        {
+            tmpText.text = tmpText.text + ch;
+            yield return new WaitForSeconds(speed);
+        }
+        callback?.Invoke();
+    }
 
     uint Djb2(string str)
     {
