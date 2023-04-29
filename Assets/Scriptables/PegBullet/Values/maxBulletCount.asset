@@ -16,7 +16,7 @@ MonoBehaviour:
   onChangeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: cad593dc77f032e4bb1acb23c644898b, type: 2}
+      - m_Target: {fileID: 11400000, guid: b6fc745c09fcf8042b6a08eb9036b6c0, type: 2}
         m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
         m_MethodName: RaiseEvent
         m_Mode: 1
