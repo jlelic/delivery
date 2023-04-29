@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Text;
 
 public class JokeHandler : MonoBehaviour
 {
@@ -18,22 +19,46 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     TMP_Text[] reactionTexts;
     [SerializeField]
-    Transform reactionSources;
+    Transform reactionZoneParent;
 
     bool canSubmit;
+    HashSet<char> allowedChars;
+    List<Transform> reactionZones;
 
-    void Start()
+    private void Awake()
     {
+        punchlineInputField.onValueChanged.AddListener(delegate { FilterInput(); });
+        punchlineInputField.gameObject.SetActive(false);
+        reactionZones = new List<Transform>();
+        for (int i = 0; i < reactionZoneParent.childCount; i++)
+        {
+            reactionZones.Add(reactionZoneParent.GetChild(i));
+        }
+    }
 
+    void FilterInput()
+    {
+        var currentValue = punchlineInputField.text;
+        Debug.Log(currentValue);
+        var newValueBuilder = new StringBuilder();
+        foreach(var ch in currentValue)
+        {
+            if(allowedChars.Contains(ch))
+            {
+                newValueBuilder.Append(ch);
+            }
+        }
+        punchlineInputField.text = newValueBuilder.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (canSubmit && Input.GetKeyDown(KeyCode.Return))
         {
-            StartCoroutine(SubmitJoke());
+            canSubmit = false;
             punchlineInputField.interactable = false;
+            StartCoroutine(SubmitJoke());
         }
     }
 
@@ -42,6 +67,25 @@ public class JokeHandler : MonoBehaviour
         setupBubble.gameObject.SetActive(true);
         setupText.gameObject.SetActive(true);
         setupText.text = level.data.jokeSetup;
+        canSubmit = false;
+        punchlineInputField.gameObject.SetActive(true);
+        punchlineInputField.interactable = false;
+    }
+
+    public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
+    {
+        HashSet<char> allowedChars = new HashSet<char> { '.','\'','?','!',',', ' ' };
+        foreach(var l in allowedLetters)
+        {
+            var str = l.ToString();
+            allowedChars.Add(str.ToUpper()[0]);
+            allowedChars.Add(str.ToLower()[0]);
+        }
+        this.allowedChars = allowedChars;
+        punchlineInputField.gameObject.SetActive(true);
+        punchlineInputField.interactable = true;
+        punchlineInputField.ActivateInputField();
+        canSubmit = true;
     }
 
     IEnumerator SubmitJoke()
@@ -68,7 +112,9 @@ public class JokeHandler : MonoBehaviour
 //        yield break;
         yield return request.SendWebRequest();
 
+        punchlineInputField.gameObject.SetActive(false);
         punchlineInputField.interactable = true;
+        canSubmit = true;
 
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
@@ -91,11 +137,16 @@ public class JokeHandler : MonoBehaviour
         }
 
         ratingText.text = string.Format("{0}/10", rating);
-        //reaction0.text = reactions[0];
-        //reaction1.text = reactions[1];
-        //reaction2.text = reactions[2];
+
+        reactionZones.Sort((a, b) => UnityEngine.Random.Range(0, 2));
+        for (int i = 0; i < reactionTexts.Length; i++)
+        {
+            reactionTexts[i].text = reactions[i];
+            reactionTexts[i].transform.position = reactionZones[i].transform.position;
+        }
 
     }
+
 
     uint Djb2(string str)
     {

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a1173fed28ae14091ccdc2d8ec6ceb, type: 3}
   m_Name: 01
   m_EditorClassIdentifier: 
-  jokeSetup: Why do aliends never bother visiting tourist attractions on earth?
-  maxBullets: 5
+  jokeSetup: Why are bears afraid of carrots?
+  maxBullets: 1

@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
         Level currentLevel = levels[currentIndex];
         pegGameManager.SetNewLevel(currentLevel.data.maxBullets, currentLevel.pegLayout);
         jokeHandler.SetUpNewLevel(1, currentLevel);
-        // setup jokeManager with jokeSetup field
-
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
     }
@@ -50,7 +48,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(letter.ToString());
         }
-
+        jokeHandler.ShowPunchlineInput(collectedLetters);
         pegGameManager.gameObject.SetActive(false);
     }
 
