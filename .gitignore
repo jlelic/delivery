@@ -11,6 +11,9 @@
 /[Mm]emory[Cc]aptures/
 /[Uu]ser[Ss]ettings/
 
+/Assets/LeanTween/Examples/
+/Assets/LeanTween/Documentation/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 

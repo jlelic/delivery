@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] private PegGameManager pegGameManager;
-    [SerializeField] private GameObject jokeGameManager;
+    [SerializeField] private JokeHandler jokeHandler;
 
     [SerializeField] private List<Level> levels;
 
@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         pegGameManager.gameObject.SetActive(false);
-        jokeGameManager.SetActive(false);
 
         Level currentLevel = levels[currentIndex];
         pegGameManager.SetNewLevel(currentLevel.data.maxBullets, currentLevel.pegLayout);
+        jokeHandler.SetUpNewLevel(1, currentLevel);
         // setup jokeManager with jokeSetup field
 
         currentIndex++;
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
         }
 
         pegGameManager.gameObject.SetActive(false);
-        jokeGameManager.SetActive(true);
     }
 
     private void Awake()

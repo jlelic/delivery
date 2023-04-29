@@ -4,12 +4,10 @@ using UnityEngine.UI;
 public class HUDBullets : MonoBehaviour
 {
     [SerializeField] private IntegerVariable bulletCount;
-
-    private Text bulletText;
+    [SerializeField] private Text bulletText;
 
     private void Start()
     {
-        bulletText = GetComponent<Text>();
         OnBulletCountChange();
     }
 
