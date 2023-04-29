@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDBullets : MonoBehaviour
+public class BulletUI : MonoBehaviour
 {
     [SerializeField] private IntegerVariable bulletCount;
     [SerializeField] private Text bulletText;
