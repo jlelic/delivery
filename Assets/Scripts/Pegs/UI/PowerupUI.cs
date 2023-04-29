@@ -4,7 +4,8 @@ using UnityEngine;
 public enum POWER_UP
 {
     BULLET_MAX_MODIFIER,
-    BULLET_SCALE
+    BULLET_SCALE,
+    BULLET_GRAVITY,
 }
 
 public class PowerupUI : MonoBehaviour
@@ -23,6 +24,12 @@ public class PowerupUI : MonoBehaviour
     public void OnBulletScaleCollected()
     {
         collectedPowerUps.Add(POWER_UP.BULLET_SCALE);
+        RerenderPowerups();
+    }
+
+    public void OnBulletGravityCollected()
+    {
+        collectedPowerUps.Add(POWER_UP.BULLET_GRAVITY);
         RerenderPowerups();
     }
 

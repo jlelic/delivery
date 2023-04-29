@@ -91,3 +91,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBulletCount: {fileID: 21300000, guid: e56a742a46b471d478d2ef80f9af47fa, type: 3}
   scaleBullet: {fileID: 21300000, guid: 54ca5e24659704042bff1ac57aaf84d8, type: 3}
+  gravityBullet: {fileID: 21300000, guid: 6b83e095557b7934a985f69798d7e7bb, type: 3}

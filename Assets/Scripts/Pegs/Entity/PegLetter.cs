@@ -7,7 +7,10 @@ public class PegLetter : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        PegManager.Instance.AddLetter(letter);
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player")
+        {
+            PegManager.Instance.AddLetter(letter);
+            Destroy(gameObject);
+        }
     }
 }

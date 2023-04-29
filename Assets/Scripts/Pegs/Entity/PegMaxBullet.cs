@@ -9,7 +9,10 @@ public class PegMaxBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        maxBulletModifier.SetValue(maxBulletModifier.value + MAX_BULLET_INCREASE);
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player")
+        {
+            maxBulletModifier.SetValue(maxBulletModifier.value + MAX_BULLET_INCREASE);
+            Destroy(gameObject);
+        }
     }
 }

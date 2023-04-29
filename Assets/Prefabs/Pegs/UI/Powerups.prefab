@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7823918789694768317}
   - component: {fileID: 7823918789694768319}
   - component: {fileID: 7823918789694768318}
+  - component: {fileID: 8038332294388934633}
   m_Layer: 5
   m_Name: Powerups
   m_TagString: Untagged
@@ -133,6 +134,34 @@ MonoBehaviour:
       - m_Target: {fileID: 7823918789694768317}
         m_TargetAssemblyTypeName: PowerupUI, Assembly-CSharp
         m_MethodName: OnBulletScaleCollected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8038332294388934633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7823918789694768257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0a33856675ba04d99afdf200647d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: d07adb72133a9cd4ebf332c9d9b335a9, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7823918789694768317}
+        m_TargetAssemblyTypeName: PowerupUI, Assembly-CSharp
+        m_MethodName: OnBulletGravityCollected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

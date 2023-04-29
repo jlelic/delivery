@@ -19,14 +19,17 @@ public class PegWall : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        hits++;
-        if (hits == WALL_MAX_HITS)
+        if (other.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            spriteRenderer.sprite = hitStateSprites[hits];
+            hits++;
+            if (hits == WALL_MAX_HITS)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                spriteRenderer.sprite = hitStateSprites[hits];
+            }
         }
     }
 }

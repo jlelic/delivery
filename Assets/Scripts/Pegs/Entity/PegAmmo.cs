@@ -7,7 +7,10 @@ public class PegAmmo : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        bulletCount.SetValue(bulletCount.value + 1);
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player")
+        {
+            bulletCount.SetValue(bulletCount.value + 1);
+            Destroy(gameObject);
+        }
     }
 }

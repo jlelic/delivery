@@ -1190,9 +1190,10 @@ GameObject:
   - component: {fileID: 7522795471306937475}
   - component: {fileID: 6014287478229330650}
   - component: {fileID: 8074325589184430603}
-  m_Layer: 0
+  - component: {fileID: 668513375165655757}
+  m_Layer: 6
   m_Name: PegBullet
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1338,6 +1339,34 @@ MonoBehaviour:
       - m_Target: {fileID: 6014287478229330650}
         m_TargetAssemblyTypeName: PegBullet, Assembly-CSharp
         m_MethodName: OnBulletScaleChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &668513375165655757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522795471306937479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0a33856675ba04d99afdf200647d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: d07adb72133a9cd4ebf332c9d9b335a9, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6014287478229330650}
+        m_TargetAssemblyTypeName: PegBullet, Assembly-CSharp
+        m_MethodName: OnBulletGravityChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

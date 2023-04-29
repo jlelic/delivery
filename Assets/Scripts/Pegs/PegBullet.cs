@@ -21,8 +21,14 @@ public class PegBullet : MonoBehaviour
         transform.localScale = new Vector3(bulletScale.value, bulletScale.value, 1f);
     }
 
+    public void OnBulletGravityChange()
+    {
+        rb.gravityScale = gravityScale.value;
+    }
+
     private void Awake()
     {
+        transform.localScale = new Vector3(bulletScale.value, bulletScale.value, 1f);
         rb = GetComponent<Rigidbody2D>();
 
         if (trajectoryDotsParent != null)
@@ -40,7 +46,6 @@ public class PegBullet : MonoBehaviour
             isMoving = true;
             bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
         }
-
     }
 
     private void Update()

@@ -9,7 +9,10 @@ public class PegScaleBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        bulletScale.SetValue(bulletScale.value + BULLET_SCALE_MODIFIER);
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player")
+        {
+            bulletScale.SetValue(bulletScale.value + BULLET_SCALE_MODIFIER);
+            Destroy(gameObject);
+        }
     }
 }
