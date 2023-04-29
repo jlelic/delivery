@@ -6,7 +6,7 @@ public class PegLetter : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        GameManager.Instance.AddLetter(letter);
+        PegGameManager.Instance.AddLetter(letter);
         Destroy(gameObject);
     }
 }

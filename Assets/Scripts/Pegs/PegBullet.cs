@@ -1,10 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PegBall : MonoBehaviour
+public class PegBullet : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 8f;
-    [SerializeField] private float gravityScale = 0.1f;
+    [SerializeField] private FloatVariable moveSpeed;
+    [SerializeField] private FloatVariable gravityScale;
+
+    [SerializeField] private IntegerVariable bulletCount;
 
     private Rigidbody2D rb;
     private bool isMoving = false;
@@ -23,9 +25,10 @@ public class PegBall : MonoBehaviour
             Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
             Vector3 direction = mousePos - objectPos;
 
-            rb.gravityScale = gravityScale;
-            rb.AddForce(direction.normalized * moveSpeed, ForceMode2D.Impulse);
+            rb.gravityScale = gravityScale.value;
+            rb.AddForce(direction.normalized * moveSpeed.value, ForceMode2D.Impulse);
             isMoving = true;
+            bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7522795471306937475}
   - component: {fileID: 7522795471306937474}
   m_Layer: 0
-  m_Name: PegBall
+  m_Name: PegBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,5 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a357a5c9c826374b8b4b65c804bc381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  gravityScale: 0.1
+  moveSpeed: {fileID: 11400000, guid: 8fcd094b6091f9e49aaefa8337074e86, type: 2}
+  gravityScale: {fileID: 11400000, guid: b67c1d1cd94f59b4fab14586597699aa, type: 2}
+  bulletCount: {fileID: 11400000, guid: 3e0bcddb28d214541ac02a20627ac065, type: 2}
