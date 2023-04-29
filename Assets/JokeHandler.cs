@@ -150,15 +150,15 @@ public class JokeHandler : MonoBehaviour
 
     uint Djb2(string str)
     {
-        Debug.Log(str);
+        //Debug.Log(str);
         uint hash = 7523;
         foreach (char c in str)
         {
             unchecked
             {
-                Debug.Log(c + " - " + (int)c);
+                //Debug.Log(c + " - " + (int)c);
                 hash = ((hash << 5) + hash) + c; // hash * 33 + c
-                Debug.Log(hash);
+                //Debug.Log(hash);
             }
         }
         return hash;
