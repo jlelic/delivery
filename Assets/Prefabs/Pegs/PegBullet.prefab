@@ -1316,6 +1316,7 @@ MonoBehaviour:
   moveSpeed: {fileID: 11400000, guid: 8fcd094b6091f9e49aaefa8337074e86, type: 2}
   gravityScale: {fileID: 11400000, guid: b67c1d1cd94f59b4fab14586597699aa, type: 2}
   bulletCount: {fileID: 11400000, guid: 3e0bcddb28d214541ac02a20627ac065, type: 2}
+  bulletScale: {fileID: 11400000, guid: da0921b4ec8569749b0e68abb0eabf48, type: 2}
   trajectoryDotsParent: {fileID: 9157123181902876388}
 --- !u!1 &7737747336815208615
 GameObject:

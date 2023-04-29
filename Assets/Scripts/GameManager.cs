@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("Managers")]
-    [SerializeField] private PegGameManager pegGameManager;
+    [SerializeField] private PegManager pegGameManager;
     [SerializeField] private JokeHandler jokeHandler;
 
     [SerializeField] private List<Level> levels;

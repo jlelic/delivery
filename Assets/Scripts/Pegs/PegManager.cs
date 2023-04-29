@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PegGameManager : MonoBehaviour
+public class PegManager : MonoBehaviour
 {
     #region Singleton set-up
 
-    private static PegGameManager instance;
+    private static PegManager instance;
 
-    public static PegGameManager Instance
+    public static PegManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = GameObject.FindObjectOfType<PegGameManager>();
+                instance = GameObject.FindObjectOfType<PegManager>();
             }
             return instance;
         }
@@ -29,6 +29,7 @@ public class PegGameManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private IntegerVariable bulletCount;
     [SerializeField] private IntegerVariable maxBulletCount;
+    [SerializeField] private IntegerVariable maxBulletModifier;
 
     private HashSet<LETTER> collectedLetters = new HashSet<LETTER>();
 
@@ -38,7 +39,7 @@ public class PegGameManager : MonoBehaviour
     {
         collectedLetters.Clear();
         pegKeyboard.ResetKeyboard();
-        maxBulletCount.SetValue(maxBullets);
+        maxBulletCount.SetValue(maxBullets + maxBulletModifier.value);
         bulletCount.SetValue(maxBullets);
 
         Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);

@@ -5,8 +5,8 @@ public class PegBullet : MonoBehaviour
 {
     [SerializeField] private FloatVariable moveSpeed;
     [SerializeField] private FloatVariable gravityScale;
-
     [SerializeField] private IntegerVariable bulletCount;
+    [SerializeField] private FloatVariable bulletScale;
 
     [SerializeField] private GameObject trajectoryDotsParent;
 
@@ -19,6 +19,7 @@ public class PegBullet : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        transform.localScale = new Vector3(bulletScale.value, bulletScale.value, 1f);
 
         if (trajectoryDotsParent != null)
         {
