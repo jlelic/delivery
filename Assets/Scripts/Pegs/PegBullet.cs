@@ -45,6 +45,11 @@ public class PegBullet : MonoBehaviour
             rb.AddForce(direction.normalized * moveSpeed.value, ForceMode2D.Impulse);
             isMoving = true;
             bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
+
+            if (bulletCount.value < 2)
+            {
+                MusicMixer.instance.QueueHigh();
+            }
         }
     }
 
@@ -90,10 +95,17 @@ public class PegBullet : MonoBehaviour
             Transform first = trajectoryDots[i];
             Transform second = trajectoryDots[i + 1];
 
-            Vector3 distance = second.position - first.position;
-            RaycastHit2D hit = Physics2D.Raycast(first.position, distance, distance.magnitude);
+            float distance = Vector2.Distance(first.position, second.position);
+            float angle = 90f + Mathf.Atan2(second.position.y - first.position.y, second.position.x - first.position.x) * Mathf.Rad2Deg;
 
-            if (hit && hit.collider != null)
+            Collider2D[] colliders = Physics2D.OverlapCapsuleAll(
+                first.position + ((second.position - first.position) / 2),
+                new Vector2(0.2f, distance),
+                CapsuleDirection2D.Vertical,
+                angle
+            );
+
+            if (colliders.Length > 0)
             {
                 hadCollision = true;
             }

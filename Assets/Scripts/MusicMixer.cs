@@ -80,7 +80,8 @@ public class MusicMixer : MonoBehaviour
     {
         float clipLength = musicSource.clip.length;
         float currentTime = musicSource.time;
-        return segmentLength * Mathf.Ceil(currentTime / segmentLength);
+        float proposedSwitchTime = segmentLength * Mathf.Ceil(currentTime / segmentLength);
+        return proposedSwitchTime < clipLength ? proposedSwitchTime : 0f;
     }
 
     // public void PlayFullSong() {
@@ -104,12 +105,20 @@ public class MusicMixer : MonoBehaviour
 
     public void QueueLow()
     {
+        if (switchName == "low")
+        {
+            return;
+        }
         switchTime = CalculateSwitchTime();
         switchName = "low";
     }
 
     public void QueueHigh()
     {
+        if (switchName == "high")
+        {
+            return;
+        }
         switchTime = CalculateSwitchTime();
         switchName = "high";
     }
