@@ -39,12 +39,15 @@ public class GameManager : MonoBehaviour
         jokeHandler.SetUpNewLevel(currentIndex);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
+
+        MusicMixer.instance.StartMusic();
     }
 
     public void ShowJokeCreator(HashSet<LETTER> collectedLetters)
     {
 
         jokeHandler.ShowPunchlineInput(collectedLetters);
+        MusicMixer.instance.QueueHigh();
     }
 
     private void Start()
