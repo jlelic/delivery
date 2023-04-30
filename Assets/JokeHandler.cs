@@ -29,6 +29,8 @@ public class JokeHandler : MonoBehaviour
     PegKeyboard pegKeyboard;
     [SerializeField]
     GameObject pegBoard;
+    [SerializeField]
+    Jerry jerry;
 
     bool canSubmit;
     bool canContinue;
@@ -96,6 +98,7 @@ public class JokeHandler : MonoBehaviour
                 pegKeyboard.StopScanning();
                 LeanTween.moveY(keyboardRectTransform, -200, 1f).setEase(LeanTweenType.linear);
                 enterToContinue.gameObject.SetActive(false);
+                jerry.Stop();
                 StartCoroutine(SubmitJoke());
             }
             else if (canContinue)
@@ -117,6 +120,7 @@ public class JokeHandler : MonoBehaviour
 
     public void SetUpNewLevel(Level level)
     {
+        jerry.Talk();
         setupBubble.gameObject.SetActive(true);
         setupImage.color = Color.white;
         setupText.color = Color.black;
@@ -130,6 +134,7 @@ public class JokeHandler : MonoBehaviour
             LeanTween.move(pegBoard, pegBoardTargetPosition, 1f);
             Utils.SetTimeout(this, 1f, () => pegKeyboard.ShowKeyboard());
             Utils.SetTimeout(this, 2f, () => GameManager.Instance.pegGameManager.Enable());
+            jerry.Think();
         }));
         canSubmit = false;
         punchlineInputField.gameObject.SetActive(false);
