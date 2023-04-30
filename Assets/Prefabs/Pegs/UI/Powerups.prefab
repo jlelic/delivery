@@ -99,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0a33856675ba04d99afdf200647d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: cad593dc77f032e4bb1acb23c644898b, type: 2}
+  gameEvent: {fileID: 11400000, guid: b6fc745c09fcf8042b6a08eb9036b6c0, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7823918789694768317}
         m_TargetAssemblyTypeName: PowerupUI, Assembly-CSharp
-        m_MethodName: OnBulletMaxModifierCollected
+        m_MethodName: OnMaxBulletCountCollected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

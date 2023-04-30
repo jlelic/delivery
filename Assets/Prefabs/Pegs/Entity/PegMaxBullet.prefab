@@ -114,4 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4902f72db03d3042950999b14414b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBulletModifier: {fileID: 11400000, guid: 61009a8810eb11440a38c895b13bac6b, type: 2}
+  particleColor: {r: 1, g: 1, b: 1, a: 1}
+  maxBulletCount: {fileID: 11400000, guid: 259cc8d44008fae49aadfae0d5f7d0dd, type: 2}

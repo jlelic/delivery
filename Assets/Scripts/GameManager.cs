@@ -26,11 +26,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PegManager pegGameManager;
     [SerializeField] public JokeHandler jokeHandler;
 
-    [SerializeField] private List<Level> levels;
+    [SerializeField] private List<GameObject> levels;
 
     [Header("Important")]
     public GameObject tomato;
-
 
     private int currentIndex = 0;
 
@@ -38,8 +37,7 @@ public class GameManager : MonoBehaviour
     {
         pegGameManager.gameObject.SetActive(false);
 
-        Level currentLevel = levels[currentIndex];
-        pegGameManager.SetNewLevel(currentLevel.data.maxBullets, currentLevel.pegLayout);
+        pegGameManager.SetNewLevel(levels[currentIndex]);
         jokeHandler.SetUpNewLevel(currentIndex);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
@@ -59,11 +57,3 @@ public class GameManager : MonoBehaviour
         Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
     }
 }
-
-[Serializable]
-public class Level
-{
-    [SerializeField] public LevelData data;
-    [SerializeField] public GameObject pegLayout;
-}
-

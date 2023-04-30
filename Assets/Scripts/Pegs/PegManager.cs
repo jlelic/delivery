@@ -31,18 +31,16 @@ public class PegManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private IntegerVariable bulletCount;
     [SerializeField] private IntegerVariable maxBulletCount;
-    [SerializeField] private IntegerVariable maxBulletModifier;
 
     private HashSet<LETTER> collectedLetters = new HashSet<LETTER>();
 
     private GameObject currentLayout;
 
-    public void SetNewLevel(int maxBullets, GameObject layoutPrefab)
+    public void SetNewLevel(GameObject layoutPrefab)
     {
         collectedLetters.Clear();
         pegKeyboard.ResetKeyboard();
-        maxBulletCount.SetValue(maxBullets + maxBulletModifier.value);
-        bulletCount.SetValue(maxBullets);
+        bulletCount.SetValue(maxBulletCount.value);
 
         currentLayout = Instantiate(layoutPrefab, pegBoard);
         currentLayout.transform.localPosition = Vector3.down;
