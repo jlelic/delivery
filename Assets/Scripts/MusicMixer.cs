@@ -18,8 +18,12 @@ public class MusicMixer : MonoBehaviour
 
     private AudioSource musicSource;
     private AudioSource noteSource;
+
     private float switchTime = -1f;
     private string switchName;
+
+    private int nextNote = 0;
+    private int noteDirection = 1;
 
     void Awake()
     {
@@ -134,13 +138,19 @@ public class MusicMixer : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void PlayRandomNote()
+    public void PlayNextNote()
     {
         noteSource.Stop();
         noteSource.loop = false;
         noteSource.volume = volume;
 
-        noteSource.clip = noteClips[UnityEngine.Random.Range(0, noteClips.Length)];
+        noteSource.clip = noteClips[nextNote];
         noteSource.Play();
+
+        nextNote += noteDirection;
+        if (nextNote == 0 || nextNote == noteClips.Length - 1)
+        {
+            noteDirection = -noteDirection;
+        }
     }
 }
