@@ -46,7 +46,14 @@ public class PegMover : MonoBehaviour
     {
         while (pegToMove.position != positions[index])
         {
-            pegToMove.localPosition = Vector3.MoveTowards(pegToMove.localPosition, positions[index], Time.deltaTime / time);
+            if (pegToMove.gameObject != null)
+            {
+                pegToMove.localPosition = Vector3.MoveTowards(pegToMove.localPosition, positions[index], Time.deltaTime / time);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             yield return null;
         }
     }
