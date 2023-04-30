@@ -26,6 +26,7 @@ public class PegManager : MonoBehaviour
     [SerializeField] private PegKeyboard pegKeyboard;
     [SerializeField] private Transform pegBoard;
     [SerializeField] private Transform bulletInitPos;
+    [SerializeField] public ParticleSystem particleTemplate;
 
     [Header("Data")]
     [SerializeField] private IntegerVariable bulletCount;

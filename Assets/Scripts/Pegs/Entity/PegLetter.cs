@@ -8,5 +8,6 @@ public class PegLetter : Peg
     {
         PegManager.Instance.AddLetter(letter);
         Destroy(gameObject);
+        Instantiate(GameManager.Instance.pegGameManager.particleTemplate, transform.position, Quaternion.identity, transform.parent);
     }
 }
