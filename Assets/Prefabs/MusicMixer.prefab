@@ -47,8 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  lowClip: {fileID: 8300000, guid: cd2ac19d975792346aadc9b6c48ac0b3, type: 3}
-  highClip: {fileID: 8300000, guid: 8ac085717c085fa4ba1b5ff61118b6d3, type: 3}
+  musicClips:
+  - {fileID: 8300000, guid: b04e1b19e793cff4b948d6ff033d14f5, type: 3}
+  - {fileID: 8300000, guid: 70cd70019a71ccf48b4c6b4f4cfb29a3, type: 3}
+  - {fileID: 8300000, guid: eb5862ae8e6ae594f863fede00789018, type: 3}
+  - {fileID: 8300000, guid: 787aee4302344ad459701ccc0c241bdd, type: 3}
+  - {fileID: 8300000, guid: 48825d2b84b0d8a46959ae35f4ae9ca5, type: 3}
+  - {fileID: 8300000, guid: c4f0fc43840b1a84ba64f0bfb0cfd07f, type: 3}
   noteClips:
   - {fileID: 8300000, guid: 6a472371b68e6c54390c062ab4c75950, type: 3}
   - {fileID: 8300000, guid: a0e36de53931f674f99a43bdfa56a6d2, type: 3}

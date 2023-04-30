@@ -45,11 +45,6 @@ public class PegBullet : MonoBehaviour
             rb.AddForce(direction.normalized * moveSpeed.value, ForceMode2D.Impulse);
             isMoving = true;
             bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
-
-            if (bulletCount.value < 2)
-            {
-                MusicMixer.instance.QueueHigh();
-            }
         }
     }
 

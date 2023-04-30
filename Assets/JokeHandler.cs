@@ -230,6 +230,7 @@ public class JokeHandler : MonoBehaviour
 
         ratingText.text = string.Format("{0}/10", rating);
         audienceManager.React(rating);
+        MusicMixer.instance.HandleRatingReceived(rating);
 
         Shuffle(reactionZones);
         for (int i = 0; i < reactionTexts.Length; i++)
