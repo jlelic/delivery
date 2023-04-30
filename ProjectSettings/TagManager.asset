@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: particles
-    uniqueID: 2719481499
+  - name: Overlay
+    uniqueID: 2555758583
     locked: 0

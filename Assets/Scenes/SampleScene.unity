@@ -1755,6 +1755,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7900081906597411962, guid: 860443b67f104624182b80bf61297307, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900081906597411962, guid: 860443b67f104624182b80bf61297307, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1739208713
+      objectReference: {fileID: 0}
     - target: {fileID: 8234655833683917568, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: pegKeyboard
       value: 
