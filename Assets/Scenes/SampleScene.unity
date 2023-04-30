@@ -226,7 +226,6 @@ GameObject:
   - component: {fileID: 29468568}
   - component: {fileID: 29468570}
   - component: {fileID: 29468569}
-  - component: {fileID: 29468571}
   - component: {fileID: 29468572}
   m_Layer: 0
   m_Name: A
@@ -294,20 +293,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29468567}
   m_CullTransparentMesh: 1
---- !u!114 &29468571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29468567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee3d7c7bc6c276419400caf8f777e3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyImage: {fileID: 0}
-  letterImage: {fileID: 0}
 --- !u!114 &29468572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,14 +1801,6 @@ PrefabInstance:
     - target: {fileID: 8234655833683917574, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: m_Name
       value: Peg Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8234655833683917574, guid: 860443b67f104624182b80bf61297307, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8234655834754138490, guid: 860443b67f104624182b80bf61297307, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 860443b67f104624182b80bf61297307, type: 3}

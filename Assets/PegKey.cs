@@ -15,7 +15,7 @@ public class PegKey : MonoBehaviour
 
     public bool isActive { get; private set; }
 
-    void Start()
+    private void Awake()
     {
         keyImage = GetComponent<Image>();
         letterImage = transform.GetChild(0).GetComponent<Image>();
@@ -45,7 +45,7 @@ public class PegKey : MonoBehaviour
     public void ShowFeedback()
     {
 
-        if(!isActive)
+        if (!isActive)
         {
             transform.localScale = Vector3.one;
             LTSeq sequence = LeanTween.sequence();
@@ -53,7 +53,8 @@ public class PegKey : MonoBehaviour
             sequence.append(LeanTween.scale(gameObject, Vector3.one, 0.1f).setEase(LeanTweenType.easeOutCubic));
             letterImage.color = Color.black;
             Utils.TweenColor(keyImage, Color.red, 0.05f);
-            Utils.SetTimeout(this, 0.15f, () => {
+            Utils.SetTimeout(this, 0.15f, () =>
+            {
                 keyImage.color = semiClear;
                 letterImage.color = Color.clear;
             });

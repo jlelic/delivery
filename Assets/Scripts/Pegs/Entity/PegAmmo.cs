@@ -1,16 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-public class PegAmmo : MonoBehaviour
+public class PegAmmo : Peg
 {
     [SerializeField] private IntegerVariable bulletCount;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    public override void OnPlayerCollision()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            bulletCount.SetValue(bulletCount.value + 1);
-            Destroy(gameObject);
-        }
+        bulletCount.SetValue(bulletCount.value + 1);
+        Destroy(gameObject);
     }
 }

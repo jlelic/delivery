@@ -1,18 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-public class PegMaxBullet : MonoBehaviour
+public class PegMaxBullet : Peg
 {
     private const int MAX_BULLET_INCREASE = 1;
 
     [SerializeField] private IntegerVariable maxBulletModifier;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    public override void OnPlayerCollision()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            maxBulletModifier.SetValue(maxBulletModifier.value + MAX_BULLET_INCREASE);
-            Destroy(gameObject);
-        }
+        maxBulletModifier.SetValue(maxBulletModifier.value + MAX_BULLET_INCREASE);
+        Destroy(gameObject);
     }
 }
