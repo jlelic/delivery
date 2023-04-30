@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         Level currentLevel = levels[currentIndex];
         pegGameManager.SetNewLevel(currentLevel.data.maxBullets, currentLevel.pegLayout);
-        jokeHandler.SetUpNewLevel(currentLevel);
+        jokeHandler.SetUpNewLevel(currentIndex);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
     }

@@ -71,6 +71,8 @@ public class JokeHandler : MonoBehaviour
         punchlineTargetPosition = punchlineRectTransform.anchoredPosition;
         setupImage = setupBubble.GetComponent<Image>();
         punchlineImage = punchlineInputField.GetComponent<Image>();
+
+        JokeDatabase.Reset();
     }
 
     void FilterInput()
@@ -120,8 +122,10 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    public void SetUpNewLevel(Level level)
+    public void SetUpNewLevel(int number)
     {
+        JokeCategory category = number == 0 ? JokeCategory.Simple : JokeCategory.General;
+        var jokeSetup = JokeDatabase.GetJokeSetup(category);
         jerry.Talk();
         audienceManager.Neutral();
         setupBubble.gameObject.SetActive(true);
@@ -132,7 +136,7 @@ public class JokeHandler : MonoBehaviour
         pegBoard.transform.position = pegBoardTargetPosition + new Vector3(0, 10, 0);
         setupText.gameObject.SetActive(true);
         setupText.text = "";
-        StartCoroutine(SlowlyFillText(setupText, level.data.jokeSetup, 0.7f, () =>
+        StartCoroutine(SlowlyFillText(setupText, jokeSetup, 0.7f, () =>
         {
             LeanTween.move(pegBoard, pegBoardTargetPosition, 1f);
             Utils.SetTimeout(this, 1f, () => pegKeyboard.ShowKeyboard());
@@ -152,7 +156,7 @@ public class JokeHandler : MonoBehaviour
         LeanTween.move(pegBoard, pegBoardTargetPosition + new Vector3(0, 15, 0), 1f);
         LeanTween.moveX(keyboardRectTransform, 0, 1).setEase(LeanTweenType.easeInQuad);
         LeanTween.moveY(keyboardRectTransform, -80, 0.5f).setEase(LeanTweenType.linear);
-        HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ' };
+        HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ', '-', '"' };
         foreach (var l in allowedLetters)
         {
             var str = l.ToString();
