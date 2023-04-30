@@ -1769,6 +1769,10 @@ PrefabInstance:
       propertyPath: pegKeyboard
       value: 
       objectReference: {fileID: 912703676}
+    - target: {fileID: 8234655833683917568, guid: 860443b67f104624182b80bf61297307, type: 3}
+      propertyPath: particleTemplate
+      value: 
+      objectReference: {fileID: 8723063658003269883, guid: fa6f256beacfe8c458a3b5057b174b29, type: 3}
     - target: {fileID: 8234655833683917571, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1819,7 +1823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8234655833683917574, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8234655834754138490, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: m_IsActive
@@ -7869,7 +7873,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &2125142421
 RectTransform:

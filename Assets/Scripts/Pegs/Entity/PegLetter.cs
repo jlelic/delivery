@@ -11,6 +11,7 @@ public class PegLetter : MonoBehaviour
         {
             PegManager.Instance.AddLetter(letter);
             Destroy(gameObject);
+            Instantiate(GameManager.Instance.pegGameManager.particleTemplate,transform.position,Quaternion.identity,transform.parent);
         }
     }
 }

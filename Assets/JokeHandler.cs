@@ -98,7 +98,7 @@ public class JokeHandler : MonoBehaviour
                 pegKeyboard.StopScanning();
                 LeanTween.moveY(keyboardRectTransform, -200, 1f).setEase(LeanTweenType.linear);
                 enterToContinue.gameObject.SetActive(false);
-                jerry.Stop();
+                jerry.Talk();
                 StartCoroutine(SubmitJoke());
             }
             else if (canContinue)
@@ -233,6 +233,7 @@ public class JokeHandler : MonoBehaviour
               canContinue = true;
               enterToContinue.text = "Press Enter to continue";
               enterToContinue.gameObject.SetActive(true);
+              jerry.Stop();
           });
     }
 
