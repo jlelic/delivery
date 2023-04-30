@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8234655833683917571
 Transform:
   m_ObjectHideFlags: 0
@@ -51,9 +51,9 @@ MonoBehaviour:
   pegKeyboard: {fileID: 0}
   pegBoard: {fileID: 8234655834948771143}
   bulletInitPos: {fileID: 8234655833855025323}
+  particleTemplate: {fileID: 0}
   bulletCount: {fileID: 11400000, guid: 3e0bcddb28d214541ac02a20627ac065, type: 2}
   maxBulletCount: {fileID: 11400000, guid: 259cc8d44008fae49aadfae0d5f7d0dd, type: 2}
-  maxBulletModifier: {fileID: 11400000, guid: 61009a8810eb11440a38c895b13bac6b, type: 2}
 --- !u!114 &8234655833683917569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8234655833728832312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -6,27 +6,28 @@ public class MusicMixer : MonoBehaviour
 {
     public static MusicMixer instance;
 
-    [Range(0f, 1f)]
+    [Range(0f, 2f)]
     [SerializeField] float volume = 1;
-    // [SerializeField] AudioClip fullSong;
-    // [SerializeField] AudioClip startClip;
-    [SerializeField] AudioClip lowClip;
-    [SerializeField] AudioClip highClip;
+    [SerializeField] AudioClip[] musicClips;
     [SerializeField] AudioClip[] noteClips;
-    // [SerializeField] AudioClip endClip;
     [SerializeField] float segmentLength = 1.6f;
 
     private AudioSource musicSource;
     private AudioSource noteSource;
+
     private float switchTime = -1f;
-    private string switchName;
+    private int switchIndex;
+    private int currentMusic = 0;
+
+    private int nextNote = 0;
+    private int noteDirection = 1;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
@@ -50,29 +51,16 @@ public class MusicMixer : MonoBehaviour
     void Update()
     {
         musicSource.volume = volume;
+        noteSource.volume = volume;
 
         if (switchTime >= 0f && musicSource.time >= switchTime)
         {
             switchTime = -1f;
+            currentMusic = switchIndex;
             musicSource.Stop();
-            switch (switchName)
-            {
-                case "low":
-                    musicSource.clip = lowClip;
-                    musicSource.loop = true;
-                    musicSource.Play();
-                    break;
-                case "high":
-                    musicSource.clip = highClip;
-                    musicSource.loop = true;
-                    musicSource.Play();
-                    break;
-                    // case "end":
-                    //     musicSource.clip = endClip;
-                    //     musicSource.loop = false;
-                    //     musicSource.Play();
-                    //     break;
-            }
+            musicSource.clip = musicClips[switchIndex];
+            musicSource.loop = true;
+            musicSource.Play();
         }
     }
 
@@ -84,49 +72,35 @@ public class MusicMixer : MonoBehaviour
         return proposedSwitchTime < clipLength ? proposedSwitchTime : 0f;
     }
 
-    // public void PlayFullSong() {
-    //     musicSource.clip = fullSong;
-    //     musicSource.loop = true;
-    //     musicSource.Play();
-    // }
-
     public void StartMusic()
     {
-        // switchTime = startClip.length;
-        // switchName = "low";
         musicSource.Stop();
-        // musicSource.clip = startClip;
-
-        musicSource.clip = lowClip;
+        musicSource.clip = musicClips[0];
         musicSource.volume = volume;
         musicSource.loop = true;
         musicSource.Play();
     }
 
-    public void QueueLow()
+    public void QueueLower()
     {
-        if (switchName == "low")
+        if (switchIndex == 0)
         {
             return;
         }
         switchTime = CalculateSwitchTime();
-        switchName = "low";
+        switchIndex = currentMusic - 1;
     }
 
-    public void QueueHigh()
+    public void QueueHigher()
     {
-        if (switchName == "high")
+        if (switchIndex == musicClips.Length - 1)
         {
             return;
         }
         switchTime = CalculateSwitchTime();
-        switchName = "high";
-    }
+        switchIndex = currentMusic + 1;
 
-    // public void QueueEnd() {
-    //     switchTime = CalculateSwitchTime();
-    //     switchName = "end";
-    // }
+    }
 
     public void StopMusic()
     {
@@ -134,13 +108,31 @@ public class MusicMixer : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void PlayRandomNote()
+    public void PlayNextNote()
     {
         noteSource.Stop();
         noteSource.loop = false;
         noteSource.volume = volume;
 
-        noteSource.clip = noteClips[UnityEngine.Random.Range(0, noteClips.Length)];
+        noteSource.clip = noteClips[nextNote];
         noteSource.Play();
+
+        nextNote += noteDirection;
+        if (nextNote == 0 || nextNote == noteClips.Length - 1)
+        {
+            noteDirection = -noteDirection;
+        }
+    }
+
+    public void HandleRatingReceived(int rating)
+    {
+        if (rating <= 1)
+        {
+            QueueLower();
+        }
+        else if (rating >= 4)
+        {
+            QueueHigher();
+        }
     }
 }

@@ -7,7 +7,6 @@ public class PegLetter : Peg
     public override void OnPlayerCollision()
     {
         PegManager.Instance.AddLetter(letter);
-        MusicMixer.instance.PlayRandomNote();
         TriggerParticleEfect();
         Destroy(gameObject);
     }

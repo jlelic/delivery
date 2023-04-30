@@ -21,6 +21,7 @@ public abstract class Peg : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             OnPlayerCollision();
+            MusicMixer.instance.PlayNextNote();
         }
     }
 }
