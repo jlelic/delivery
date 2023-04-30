@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public static class Utils
 {
+    public static Color ClearWhite = new Color(1, 1, 1, 0);
+
     public static void SetTimeout(MonoBehaviour mb, float delay, System.Action action)
     {
         mb.StartCoroutine(DelayCoroutine(delay, action));
@@ -22,7 +24,6 @@ public static class Utils
     {
         LeanTween.value(image.gameObject, (c) =>
         {
-            Debug.Log(c);
             image.color = c;
         }, image.color, toColor, duration);
 
@@ -32,7 +33,6 @@ public static class Utils
     {
         LeanTween.value(text.gameObject, (c) =>
         {
-            Debug.Log(c);
             text.color = c;
         }, text.color, toColor, duration);
     }

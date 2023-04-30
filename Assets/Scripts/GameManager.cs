@@ -36,33 +36,20 @@ public class GameManager : MonoBehaviour
 
         Level currentLevel = levels[currentIndex];
         pegGameManager.SetNewLevel(currentLevel.data.maxBullets, currentLevel.pegLayout);
-        jokeHandler.SetUpNewLevel(1, currentLevel);
+        jokeHandler.SetUpNewLevel(currentLevel);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
     }
 
     public void ShowJokeCreator(HashSet<LETTER> collectedLetters)
     {
-        Debug.Log("Collected letters:");
-        foreach (LETTER letter in collectedLetters)
-        {
-            Debug.Log(letter.ToString());
-        }
+
         jokeHandler.ShowPunchlineInput(collectedLetters);
     }
 
     private void Start()
     {
         Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
-    }
-
-    private void Update()
-    {
-        // Simulate next level
-        if (Input.GetKeyDown(KeyCode.N) && currentIndex < levels.Count)
-        {
-            LoadNextLevel();
-        }
     }
 }
 

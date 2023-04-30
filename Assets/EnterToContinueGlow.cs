@@ -15,7 +15,6 @@ public class EnterToContinueGlow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (goingUp)

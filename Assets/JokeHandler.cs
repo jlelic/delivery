@@ -25,9 +25,10 @@ public class JokeHandler : MonoBehaviour
     Transform reactionZoneParent;
     [SerializeField]
     TMP_Text enterToContinue;
-
     [SerializeField]
-    GameObject PegBoard;
+    PegKeyboard pegKeyboard;
+    [SerializeField]
+    GameObject pegBoard;
 
     bool canSubmit;
     bool canContinue;
@@ -35,6 +36,8 @@ public class JokeHandler : MonoBehaviour
     List<Transform> reactionZones;
     RectTransform setupRectTransform;
     RectTransform punchlineRectTransform;
+    RectTransform keyboardRectTransform;
+    Vector2 keyboardOriginalPosition;
     Vector2 setupTargetPosition;
     Vector2 punchlineTargetPosition;
     Vector3 pegBoardTargetPosition;
@@ -44,6 +47,7 @@ public class JokeHandler : MonoBehaviour
     private void Awake()
     {
         punchlineInputField.onValueChanged.AddListener(delegate { FilterInput(); });
+        punchlineInputField.onDeselect.AddListener(delegate { punchlineInputField.ActivateInputField(); });
         punchlineInputField.gameObject.SetActive(false);
         reactionZones = new List<Transform>();
         for (int i = 0; i < reactionZoneParent.childCount; i++)
@@ -54,9 +58,11 @@ public class JokeHandler : MonoBehaviour
 
     private void Start()
     {
+        keyboardRectTransform = pegKeyboard.GetComponent<RectTransform>();
+        keyboardOriginalPosition = keyboardRectTransform.anchoredPosition;
         setupRectTransform = setupBubble.GetComponent<RectTransform>();
         setupTargetPosition = setupRectTransform.anchoredPosition;
-        pegBoardTargetPosition = PegBoard.transform.position;
+        pegBoardTargetPosition = pegBoard.transform.position;
         punchlineRectTransform = punchlineInputField.GetComponent<RectTransform>();
         punchlineTargetPosition = punchlineRectTransform.anchoredPosition;
         setupImage = setupBubble.GetComponent<Image>();
@@ -87,39 +93,57 @@ public class JokeHandler : MonoBehaviour
             {
                 canSubmit = false;
                 punchlineInputField.interactable = false;
+                pegKeyboard.StopScanning();
+                LeanTween.moveY(keyboardRectTransform, -200, 1f).setEase(LeanTweenType.linear);
+                enterToContinue.gameObject.SetActive(false);
                 StartCoroutine(SubmitJoke());
             }
             else if (canContinue)
             {
                 enterToContinue.gameObject.SetActive(false);
-                Utils.TweenColor(punchlineImage, new Color(1f, 1f, 1f, 0f));
-                Utils.TweenColor(punchlineText, new Color(1f, 1f, 1f, 0f));
-                Utils.TweenColor(setupImage, new Color(1f, 1f, 1f, 0f));
-                Utils.TweenColor(setupText, new Color(1f, 1f, 1f, 0f));
+                ratingText.text = "";
+                Utils.TweenColor(punchlineImage, Utils.ClearWhite);
+                Utils.TweenColor(punchlineText, Utils.ClearWhite);
+                Utils.TweenColor(setupImage, Utils.ClearWhite);
+                Utils.TweenColor(setupText, Utils.ClearWhite);
+                foreach (var t in reactionTexts)
+                {
+                    Utils.TweenColor(t, Utils.ClearWhite);
+                }
+                Utils.SetTimeout(this, 1.5f, () => GameManager.Instance.LoadNextLevel());
             }
         }
     }
 
-    public void SetUpNewLevel(int number, Level level)
+    public void SetUpNewLevel(Level level)
     {
         setupBubble.gameObject.SetActive(true);
+        setupImage.color = Color.white;
+        setupText.color = Color.black;
         setupRectTransform.anchoredPosition = setupTargetPosition - new Vector2(100, 0);
         LeanTween.move(setupRectTransform, setupTargetPosition, 0.7f);
-        PegBoard.transform.position = pegBoardTargetPosition + new Vector3(0, 10, 0);
+        pegBoard.transform.position = pegBoardTargetPosition + new Vector3(0, 10, 0);
         setupText.gameObject.SetActive(true);
         setupText.text = "";
         StartCoroutine(SlowlyFillText(setupText, level.data.jokeSetup, 0.7f, () =>
         {
-            LeanTween.move(PegBoard, pegBoardTargetPosition, 1f);
+            LeanTween.move(pegBoard, pegBoardTargetPosition, 1f);
+            Utils.SetTimeout(this, 1f, () => pegKeyboard.ShowKeyboard());
+            Utils.SetTimeout(this, 2f, () => GameManager.Instance.pegGameManager.Enable());
         }));
         canSubmit = false;
         punchlineInputField.gameObject.SetActive(false);
+        punchlineImage.color = Color.white;
         punchlineInputField.interactable = false;
+        punchlineText.color = Color.black;
+        keyboardRectTransform.anchoredPosition = keyboardOriginalPosition;
     }
 
     public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
     {
-        LeanTween.move(PegBoard, pegBoardTargetPosition + new Vector3(0, 15, 0), 1f);
+        LeanTween.move(pegBoard, pegBoardTargetPosition + new Vector3(0, 15, 0), 1f);
+        LeanTween.moveX(keyboardRectTransform, 0, 1).setEase(LeanTweenType.easeInQuad);
+        LeanTween.moveY(keyboardRectTransform, -80, 0.5f).setEase(LeanTweenType.linear);
         HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ' };
         foreach (var l in allowedLetters)
         {
@@ -130,12 +154,17 @@ public class JokeHandler : MonoBehaviour
         this.allowedChars = allowedChars;
         punchlineRectTransform.anchoredPosition = punchlineTargetPosition - new Vector2(0, 100);
         punchlineInputField.gameObject.SetActive(true);
+        punchlineInputField.text = "";
+
+        pegKeyboard.StartScanning();
 
         LeanTween.move(punchlineRectTransform, punchlineTargetPosition, 1);
         Utils.SetTimeout(this, 1, () =>
         {
             punchlineInputField.interactable = true;
             punchlineInputField.ActivateInputField();
+            enterToContinue.text = "Press Enter to submit";
+            enterToContinue.gameObject.SetActive(true);
             canSubmit = true;
         });
     }
@@ -189,6 +218,7 @@ public class JokeHandler : MonoBehaviour
         Shuffle(reactionZones);
         for (int i = 0; i < reactionTexts.Length; i++)
         {
+            reactionTexts[i].color = Color.white;
             reactionTexts[i].text = reactions[i];
             reactionTexts[i].transform.position = reactionZones[i].transform.position;
         }
@@ -196,6 +226,7 @@ public class JokeHandler : MonoBehaviour
         Utils.SetTimeout(this, 2, () =>
           {
               canContinue = true;
+              enterToContinue.text = "Press Enter to continue";
               enterToContinue.gameObject.SetActive(true);
           });
     }

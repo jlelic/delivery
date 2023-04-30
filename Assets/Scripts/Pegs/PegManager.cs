@@ -43,8 +43,13 @@ public class PegManager : MonoBehaviour
         maxBulletCount.SetValue(maxBullets + maxBulletModifier.value);
         bulletCount.SetValue(maxBullets);
 
+        currentLayout = Instantiate(layoutPrefab, pegBoard);
+        currentLayout.transform.localPosition = Vector3.down;
+    }
+
+    public void Enable()
+    {
         Instantiate<PegBullet>(bulletPrefab, bulletInitPos.position, Quaternion.identity);
-        currentLayout = Instantiate(layoutPrefab, pegBoard, true);
     }
 
     public void OnPegBulletDestroyed()
@@ -56,10 +61,14 @@ public class PegManager : MonoBehaviour
         else
         {
             // End Peg gameplay
-            Destroy(currentLayout.gameObject);
-            currentLayout = null;
-            // Start Joke creation gameplay
-            GameManager.Instance.ShowJokeCreator(collectedLetters);
+            Utils.SetTimeout(this, 2, () =>
+            {
+
+                Destroy(currentLayout.gameObject);
+                currentLayout = null;
+                // Start Joke creation gameplay
+                GameManager.Instance.ShowJokeCreator(collectedLetters);
+            });
         }
     }
 
