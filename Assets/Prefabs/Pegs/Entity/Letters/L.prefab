@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119ebaef929eb9746914e3cb635d0875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleColor: {r: 1, g: 1, b: 1, a: 1}
   letter: 11
 --- !u!58 &918783416762810545
 CircleCollider2D:

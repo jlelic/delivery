@@ -29,6 +29,14 @@ public static class Utils
 
     }
 
+    internal static void TweenColor(SpriteRenderer spriteRenderer, Color toColor, float duration = 1f, float delay = 1f)
+    {
+        LeanTween.value(spriteRenderer.gameObject, (c) =>
+        {
+            spriteRenderer.color = c;
+        }, spriteRenderer.color, toColor, duration);
+    }
+
     internal static void TweenColor(TMP_Text text, Color toColor, float duration = 1f, float delay = 1f)
     {
         LeanTween.value(text.gameObject, (c) =>

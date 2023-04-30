@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecaa64f8bc1a8d4c89688e7fd34d11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleColor: {r: 0.6320754, g: 0.41168386, b: 0.2647561, a: 1}
   hitStateSprites:
   - {fileID: 1683537375, guid: dcfa35e690244ba47a5960355403db1a, type: 3}
   - {fileID: -506427191, guid: dcfa35e690244ba47a5960355403db1a, type: 3}

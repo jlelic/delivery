@@ -186,6 +186,10 @@ public class JokeHandler : MonoBehaviour
         var request = new UnityWebRequest("https://europe-west1-delivery-385208.cloudfunctions.net/rate-joke", "POST");
         var setup = setupText.text;
         var punchline = punchlineInputField.text;
+        if (punchline.Length == 0)
+        {
+            punchline = "*The comedian stammers and doesn't say anything*";
+        }
         var identifier = SystemInfo.deviceUniqueIdentifier;
         var time = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var checksum = Djb2(String.Concat(setup, punchline, identifier, time));
@@ -204,7 +208,6 @@ public class JokeHandler : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         //        yield break;
         yield return request.SendWebRequest();
-
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
         string[] reactions = new string[] { "eyy", "huh", "hmmm" };

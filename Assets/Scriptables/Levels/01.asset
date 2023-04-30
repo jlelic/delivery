@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 01
   m_EditorClassIdentifier: 
   jokeSetup: Why are bears afraid of carrots?
-  maxBullets: 5
+  maxBullets: 1

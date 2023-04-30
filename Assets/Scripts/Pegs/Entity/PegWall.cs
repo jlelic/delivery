@@ -16,6 +16,7 @@ public class PegWall : Peg
         hits++;
         if (hits == WALL_MAX_HITS)
         {
+            TriggerParticleEfect();
             Destroy(gameObject);
         }
         else

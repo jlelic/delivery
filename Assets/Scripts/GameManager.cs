@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Level> levels;
 
+    [Header("Important")]
+    public GameObject tomato;
+
+
     private int currentIndex = 0;
 
     public void LoadNextLevel()
