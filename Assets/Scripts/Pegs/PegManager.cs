@@ -43,7 +43,7 @@ public class PegManager : MonoBehaviour
         bulletCount.SetValue(maxBulletCount.value);
 
         currentLayout = Instantiate(layoutPrefab, pegBoard);
-        currentLayout.transform.localPosition = Vector3.down;
+        currentLayout.transform.localPosition = new Vector3(0f, -1f, -0.5f);
     }
 
     public void Enable()
