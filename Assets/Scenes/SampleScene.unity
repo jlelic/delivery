@@ -5066,9 +5066,24 @@ MonoBehaviour:
   jokeHandler: {fileID: 2125142422}
   levels:
   - data: {fileID: 11400000, guid: fc062e36c16c46c4e97583371e9cffe9, type: 2}
-    pegLayout: {fileID: 2399261104048892175, guid: feb65ae76cbe7b2499f95c85af926d3a, type: 3}
+    pegLayout: {fileID: 3435126817714675034, guid: 274cace46bc90884db8c94320fc20336, type: 3}
   - data: {fileID: 11400000, guid: a74216f1885a60b4e833a94d4a6a5c1c, type: 2}
     pegLayout: {fileID: 2399261104048892175, guid: feb65ae76cbe7b2499f95c85af926d3a, type: 3}
+  levelLoadedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 1c99faf3bc53c684a9063b032995688d, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: RaiseEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1542922739
 GameObject:
   m_ObjectHideFlags: 0

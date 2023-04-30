@@ -2974,7 +2974,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -128, y: 92}
-  m_SizeDelta: {x: 89.71, y: 0}
+  m_SizeDelta: {x: 89.71, y: 12}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &883767421
 MonoBehaviour:
@@ -5066,7 +5066,7 @@ MonoBehaviour:
   jokeHandler: {fileID: 2125142422}
   levels:
   - data: {fileID: 11400000, guid: fc062e36c16c46c4e97583371e9cffe9, type: 2}
-    pegLayout: {fileID: 2399261104048892175, guid: feb65ae76cbe7b2499f95c85af926d3a, type: 3}
+    pegLayout: {fileID: 3435126817714675034, guid: 274cace46bc90884db8c94320fc20336, type: 3}
   - data: {fileID: 11400000, guid: a74216f1885a60b4e833a94d4a6a5c1c, type: 2}
     pegLayout: {fileID: 2399261104048892175, guid: feb65ae76cbe7b2499f95c85af926d3a, type: 3}
 --- !u!1 &1542922739
@@ -5257,6 +5257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547935133}
   - component: {fileID: 1547935134}
+  - component: {fileID: 1547935135}
   m_Layer: 0
   m_Name: person2expressions_0
   m_TagString: Untagged
@@ -5331,6 +5332,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1547935135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547935132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c75efefb7ea58a49af7104ab043a9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neutralPose: {fileID: 1065802096, guid: 55a48970e4b62c44c9f7e5660c185db6, type: 3}
+  boredPose: {fileID: -1080711751, guid: 55a48970e4b62c44c9f7e5660c185db6, type: 3}
+  smirkPose: {fileID: 545157886, guid: 55a48970e4b62c44c9f7e5660c185db6, type: 3}
+  angryPose: {fileID: 503415432, guid: 55a48970e4b62c44c9f7e5660c185db6, type: 3}
+  laughingPose: {fileID: 813502331, guid: 55a48970e4b62c44c9f7e5660c185db6, type: 3}
 --- !u!1 &1550863202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5453,6 +5471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1587564917}
   - component: {fileID: 1587564918}
+  - component: {fileID: 1587564919}
   m_Layer: 0
   m_Name: person1expressions_0
   m_TagString: Untagged
@@ -5527,6 +5546,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1587564919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587564916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c75efefb7ea58a49af7104ab043a9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neutralPose: {fileID: 1121445678, guid: c6008603598b49c409f1b171da21f8a3, type: 3}
+  boredPose: {fileID: 485974797, guid: c6008603598b49c409f1b171da21f8a3, type: 3}
+  smirkPose: {fileID: 1146803830, guid: c6008603598b49c409f1b171da21f8a3, type: 3}
+  angryPose: {fileID: -487028162, guid: c6008603598b49c409f1b171da21f8a3, type: 3}
+  laughingPose: {fileID: -230177926, guid: c6008603598b49c409f1b171da21f8a3, type: 3}
 --- !u!1 &1604029365
 GameObject:
   m_ObjectHideFlags: 0
@@ -5652,9 +5688,9 @@ RectTransform:
   m_Father: {fileID: 883767420}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 44.855, y: -6}
   m_SizeDelta: {x: 78.16, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1607204284
@@ -6873,7 +6909,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 92}
-  m_SizeDelta: {x: 150, y: 0}
+  m_SizeDelta: {x: 150, y: 12.01}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1812045184
 MonoBehaviour:
@@ -7792,13 +7828,14 @@ GameObject:
   - component: {fileID: 2125142419}
   - component: {fileID: 2125142418}
   - component: {fileID: 2125142422}
+  - component: {fileID: 2125142423}
   m_Layer: 5
   m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2125142418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7918,5 +7955,17 @@ MonoBehaviour:
   enterToContinue: {fileID: 1277055193}
   pegKeyboard: {fileID: 912703676}
   pegBoard: {fileID: 1795961772}
-  audienceManager: {fileID: 0}
+  audienceManager: {fileID: 2125142423}
   jerry: {fileID: 797385727}
+--- !u!114 &2125142423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125142417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab24caef44fa2314d89c8dcb4f7801c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -18,6 +18,10 @@ public class PegRotator : MonoBehaviour
 
     private void Start()
     {
+        foreach (Transform item in transform)
+        {
+            item.gameObject.AddComponent<PegLockLocalRotation>();
+        }
         RotatePegs();
     }
 

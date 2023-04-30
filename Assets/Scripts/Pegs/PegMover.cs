@@ -12,17 +12,8 @@ public class PegMover : MonoBehaviour
     [Tooltip("Whether to continously loop peg travel")]
     [SerializeField] private bool loop = true;
 
-    private Vector3[] positions;
-
     private void Start()
     {
-        positions = new Vector3[travelPoints.Count];
-        for (int i = 0; i < positions.Length; i++)
-        {
-            positions[i] = travelPoints[i].position;
-        };
-
-
         StartCoroutine(MovePeg());
     }
 
@@ -36,7 +27,7 @@ public class PegMover : MonoBehaviour
 
     private IEnumerator TraversePoints()
     {
-        for (int i = 0; i < positions.Length; i++)
+        for (int i = 0; i < travelPoints.Count; i++)
         {
             yield return MovePegToNextPoint(i);
         }
@@ -44,17 +35,20 @@ public class PegMover : MonoBehaviour
 
     private IEnumerator MovePegToNextPoint(int index)
     {
-        while (pegToMove.position != positions[index])
+        do
         {
-            if (pegToMove.gameObject != null)
+            if (pegToMove != null)
             {
-                pegToMove.localPosition = Vector3.MoveTowards(pegToMove.localPosition, positions[index], Time.deltaTime / time);
-            }
-            else
-            {
-                Destroy(gameObject);
+                pegToMove.localPosition = Vector3.MoveTowards(pegToMove.localPosition, travelPoints[index].localPosition, Time.deltaTime / time);
             }
             yield return null;
+        }
+        while (pegToMove != null && pegToMove.localPosition != travelPoints[index].localPosition);
+
+        if (pegToMove == null)
+        {
+            Destroy(gameObject);
+
         }
     }
 }
