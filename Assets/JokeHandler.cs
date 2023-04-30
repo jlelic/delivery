@@ -33,6 +33,8 @@ public class JokeHandler : MonoBehaviour
     AudienceManager audienceManager;
     [SerializeField]
     Jerry jerry;
+    [SerializeField]
+    ScoreBar scoreBar;
 
     bool canSubmit;
     bool canContinue;
@@ -41,9 +43,11 @@ public class JokeHandler : MonoBehaviour
     RectTransform setupRectTransform;
     RectTransform punchlineRectTransform;
     RectTransform keyboardRectTransform;
+    RectTransform scoreBarRectTransform;
     Vector2 keyboardOriginalPosition;
     Vector2 setupTargetPosition;
     Vector2 punchlineTargetPosition;
+    Vector2 scoreBarTargetPosition;
     Vector3 pegBoardTargetPosition;
     Image setupImage;
     Image punchlineImage;
@@ -69,8 +73,11 @@ public class JokeHandler : MonoBehaviour
         pegBoardTargetPosition = pegBoard.transform.position;
         punchlineRectTransform = punchlineInputField.GetComponent<RectTransform>();
         punchlineTargetPosition = punchlineRectTransform.anchoredPosition;
+        scoreBarRectTransform = scoreBar.GetComponent<RectTransform>();
+        scoreBarTargetPosition = scoreBarRectTransform.anchoredPosition;
         setupImage = setupBubble.GetComponent<Image>();
         punchlineImage = punchlineInputField.GetComponent<Image>();
+        scoreBar.gameObject.SetActive(false);
 
         JokeDatabase.Reset();
     }
@@ -101,6 +108,10 @@ public class JokeHandler : MonoBehaviour
                 punchlineInputField.interactable = false;
                 pegKeyboard.StopScanning();
                 LeanTween.moveY(keyboardRectTransform, -200, 1f).setEase(LeanTweenType.linear);
+                scoreBar.gameObject.SetActive(true);
+                scoreBarRectTransform.anchoredPosition = scoreBarTargetPosition + 200 * Vector2.up;
+                scoreBar.StartLoading();
+                LeanTween.move(scoreBarRectTransform, scoreBarTargetPosition, 1f).setEase(LeanTweenType.easeInBounce);
                 enterToContinue.gameObject.SetActive(false);
                 jerry.Talk();
                 StartCoroutine(SubmitJoke());
@@ -108,7 +119,7 @@ public class JokeHandler : MonoBehaviour
             else if (canContinue)
             {
                 enterToContinue.gameObject.SetActive(false);
-                ratingText.text = "";
+                Utils.TweenColor(ratingText, Utils.ClearWhite);
                 Utils.TweenColor(punchlineImage, Utils.ClearWhite);
                 Utils.TweenColor(punchlineText, Utils.ClearWhite);
                 Utils.TweenColor(setupImage, Utils.ClearWhite);
@@ -228,8 +239,10 @@ public class JokeHandler : MonoBehaviour
             reactions[2] = split[3];
         }
 
+        Utils.TweenColor(ratingText, Color.white);
         ratingText.text = string.Format("{0}/10", rating);
         audienceManager.React(rating);
+        scoreBar.AddScore(rating);
 
         Shuffle(reactionZones);
         for (int i = 0; i < reactionTexts.Length; i++)
@@ -239,7 +252,7 @@ public class JokeHandler : MonoBehaviour
             reactionTexts[i].transform.position = reactionZones[i].transform.position;
         }
 
-        Utils.SetTimeout(this, 2, () =>
+        Utils.SetTimeout(this, 4, () =>
           {
               canContinue = true;
               enterToContinue.text = "Press Enter to continue";
