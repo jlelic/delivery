@@ -30,6 +30,8 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     GameObject pegBoard;
     [SerializeField]
+    AudienceManager audienceManager;
+    [SerializeField]
     Jerry jerry;
 
     bool canSubmit;
@@ -121,6 +123,7 @@ public class JokeHandler : MonoBehaviour
     public void SetUpNewLevel(Level level)
     {
         jerry.Talk();
+        audienceManager.Neutral();
         setupBubble.gameObject.SetActive(true);
         setupImage.color = Color.white;
         setupText.color = Color.black;
@@ -219,6 +222,7 @@ public class JokeHandler : MonoBehaviour
         }
 
         ratingText.text = string.Format("{0}/10", rating);
+        audienceManager.React(rating);
 
         Shuffle(reactionZones);
         for (int i = 0; i < reactionTexts.Length; i++)
