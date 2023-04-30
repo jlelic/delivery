@@ -1806,8 +1806,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Peg Manager
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
     - target: {fileID: 8234655833683917574, guid: 860443b67f104624182b80bf61297307, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1816,7 +1814,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
->>>>>>> ff4183b82acf397694b672389918a735542038f8
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 860443b67f104624182b80bf61297307, type: 3}
 --- !u!1 &549583418
