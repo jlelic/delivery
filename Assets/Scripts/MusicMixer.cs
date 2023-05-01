@@ -51,7 +51,6 @@ public class MusicMixer : MonoBehaviour
         musicSource = audioSources[0];
         noteSources = new AudioSource[2] { audioSources[1], audioSources[2] };
         crowdSource = audioSources[3];
-        StartMusic();
     }
 
     void Update()
@@ -161,11 +160,11 @@ public class MusicMixer : MonoBehaviour
     public void HandleRatingReceived(int rating)
     {
         int crowdClip = rating;
-        if(rating >= 7)
+        if (rating >= 7)
         {
-            crowdClip += UnityEngine.Random.Range(0,2);
+            crowdClip += UnityEngine.Random.Range(0, 2);
         }
-        if(crowdClip >= crowdClips.Length)
+        if (crowdClip >= crowdClips.Length)
         {
             crowdClip = crowdClips.Length - 1;
         }

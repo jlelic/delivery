@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         gameId = System.Guid.NewGuid();
         audienceManager.RandomizeAudience();
+        MusicMixer.instance.StartMusic();
         currentIndex = 0;
         gameStartEvent.Invoke();
         Utils.SetTimeout(this, 3f, () =>
