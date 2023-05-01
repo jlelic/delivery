@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     ParticleSystem particles;
     new SpriteRenderer renderer;
     new Rigidbody2D rigidbody;
+    AudioSource audioSource;
 
     bool hit;
 
@@ -17,6 +18,7 @@ public class Projectile : MonoBehaviour
         particles = GetComponent<ParticleSystem>();
         renderer = GetComponent<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,6 +30,8 @@ public class Projectile : MonoBehaviour
             return;
         }
 
+        audioSource.pitch = 0.5f + UnityEngine.Random.value;
+        audioSource.Play();
         hit = true;
         rigidbody.gravityScale = 0.3f;
         particles.Play();

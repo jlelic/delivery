@@ -110,6 +110,7 @@ public class MusicMixer : MonoBehaviour
 
     public void PlayNextNote()
     {
+        noteSource.pitch = 1;
         noteSource.Stop();
         noteSource.loop = false;
         noteSource.volume = volume;
@@ -122,6 +123,16 @@ public class MusicMixer : MonoBehaviour
         {
             noteDirection = -noteDirection;
         }
+    }
+
+    public void PlayPitchedNote(int note, float pitch)
+    {
+        noteSource.pitch = pitch;
+        noteSource.Stop();
+        noteSource.loop = false;
+        noteSource.volume = volume;
+        noteSource.clip = noteClips[note];
+        noteSource.Play();
     }
 
     public void HandleRatingReceived(int rating)

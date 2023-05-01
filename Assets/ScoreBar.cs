@@ -76,11 +76,11 @@ public class ScoreBar : MonoBehaviour
 
     IEnumerator IncreaseTotalScore(int toAdd)
     {
-        while (toAdd > 0)
+        for (int i = 0; i < toAdd; i++)
         {
             score++;
             scoreText.text = "Score: " + score;
-            toAdd--;
+            MusicMixer.instance.PlayPitchedNote(5, 2 + i * 0.2f);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -97,11 +97,11 @@ public class ScoreBar : MonoBehaviour
 
     IEnumerator RandomizeValue()
     {
-        for(; ; )
+        for (; ; )
         {
             var target = UnityEngine.Random.Range(1, 10);
             var diff = (int)Mathf.Sign(target - value);
-            while(value != target)
+            while (value != target)
             {
                 SetValue(value + diff);
                 Debug.Log("Target: " + target + "  Value: " + value);

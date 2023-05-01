@@ -2,63 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum AnimationStartFrame
+{
+    Laugh = 0,
+    Bored = 2,
+    Anger = 4,
+    Neutral = 6,
+    Giggle = 8
+}
+
 public class AudienceMember : MonoBehaviour
 {
     new SpriteRenderer renderer;
+
     [SerializeField]
-    Sprite neutralPose;
-    [SerializeField]
-    Sprite boredPose;
-    [SerializeField]
-    Sprite smirkPose;
-    [SerializeField]
-    Sprite angryPose;
-    [SerializeField]
-    Sprite laughingPose;
+    Sprite[] spriteSheet;
 
     [SerializeField]
     Transform projectileSource;
 
+    int animationFrame;
+    int animationStartFrame;
+    float currentFrameTime;
+
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
+        Utils.SetTimeout(this, 1, () => React(0));
     }
 
     public void Neutral()
     {
-        renderer.sprite = neutralPose;
+        animationStartFrame = 6;
     }
 
     public void React(int score)
     {
-        var newSprite = neutralPose;
+        var newAnimation = AnimationStartFrame.Neutral;
         var randBool = UnityEngine.Random.value > 0.5;
         if (score == 0)
         {
-            newSprite = angryPose;
+            newAnimation = AnimationStartFrame.Anger;
         }
         else if (score <= 3)
         {
-            newSprite = randBool ? boredPose : angryPose;
+            newAnimation = randBool ? AnimationStartFrame.Bored : AnimationStartFrame.Anger;
         }
         else if (score < 5)
         {
-            newSprite = neutralPose;
+            newAnimation = randBool ? AnimationStartFrame.Bored : AnimationStartFrame.Neutral;
         }
         else if (score < 6)
         {
-            newSprite = randBool ? smirkPose : neutralPose;
+            newAnimation = randBool ? AnimationStartFrame.Giggle : AnimationStartFrame.Neutral;
         }
         else if (score < 8)
         {
-            newSprite = randBool ? smirkPose : laughingPose;
+            newAnimation = randBool ? AnimationStartFrame.Giggle : AnimationStartFrame.Laugh;
         }
         else
         {
-            newSprite = laughingPose;
+            newAnimation = AnimationStartFrame.Laugh;
         }
 
-        if (newSprite == angryPose && projectileSource != null)
+        if (newAnimation == AnimationStartFrame.Anger && projectileSource != null)
         {
             var tomato = Instantiate(GameManager.Instance.tomato, projectileSource.position, Quaternion.identity);
             var tomatoRigidBody = tomato.GetComponent<Rigidbody2D>();
@@ -69,6 +76,18 @@ public class AudienceMember : MonoBehaviour
             }); 
         }
 
-        renderer.sprite = newSprite;
+        animationStartFrame = (int)newAnimation;
+    }
+
+    private void Update()
+    {
+        currentFrameTime += Time.deltaTime;
+
+        if(currentFrameTime > 0.5f + 0.2f*UnityEngine.Random.value)
+        {
+            animationFrame = 1 - animationFrame;
+            renderer.sprite = spriteSheet[animationStartFrame + animationFrame];
+            currentFrameTime = 0;
+        }
     }
 }
