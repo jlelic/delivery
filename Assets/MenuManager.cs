@@ -32,9 +32,9 @@ public class MenuManager : MonoBehaviour
     {
         Utils.TweenColor(introText, Utils.ClearWhite);
         Utils.TweenColor(titleText, Utils.ClearWhite);
-        Utils.TweenColor(startGameButtonText, Color.clear);
-        Utils.TweenColor(startGameButton, Utils.ClearWhite);
+
         startGameButton.enabled = false;
+        startGameButton.gameObject.SetActive(false);
         LeanTween.move(introOverlay.gameObject, introText.transform.position + new Vector3(7.5f, 0, 0), 1f)
             .setEase(LeanTweenType.easeInExpo);
         LeanTween.scale(introOverlay.gameObject, Vector3.one * 2.5f, 1f)
@@ -59,6 +59,7 @@ public class MenuManager : MonoBehaviour
 
         Utils.SetTimeout(this, 2f, () =>
         {
+            startGameButton.gameObject.SetActive(true);
             startGameButton.enabled = true;
             startGameButtonText.text = "Play again";
             startGameButtonText.color = Color.black;

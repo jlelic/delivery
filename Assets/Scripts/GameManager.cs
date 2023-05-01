@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        if (currentIndex == 1)
+        if (currentIndex == levels.Count)
         {
             menuManager.ShowOutro(totalScore);
             return;
