@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PegBullet : MonoBehaviour
@@ -15,6 +16,11 @@ public class PegBullet : MonoBehaviour
 
     private Transform[] trajectoryDots;
     private Vector2 direction;
+
+    private Queue<float> velocities = new Queue<float>();
+    private float rescueForce = 2f;
+    private float rescueVelocityLimit = 0.2f;
+    private int rescueSampleCount = 10;
 
     public void OnBulletScaleChange()
     {
@@ -34,6 +40,26 @@ public class PegBullet : MonoBehaviour
         if (trajectoryDotsParent != null)
         {
             trajectoryDots = trajectoryDotsParent.GetComponentsInChildren<Transform>();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        // check if the bullet was moving last x fixedUpdates and help it if not
+        this.velocities.Enqueue(this.rb.velocity.magnitude);
+        if (this.velocities.Count >= rescueSampleCount)
+        {
+            this.velocities.Dequeue();
+        }
+        float[] lastVelocities = velocities.ToArray();
+        float total = 0f;
+        foreach (var v in lastVelocities)
+        {
+            total += v;
+        }
+        if (isMoving && total <= rescueVelocityLimit)
+        {
+            this.rb.velocity = rescueForce * UnityEngine.Random.insideUnitCircle;
         }
     }
 
