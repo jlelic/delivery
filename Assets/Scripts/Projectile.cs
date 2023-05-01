@@ -27,6 +27,11 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
+        var jerry = collision.gameObject.GetComponent<Jerry>();
+        if(jerry != null)
+        {
+            jerry.GetTomated();
+        }
 
         audioSource.pitch = 0.5f + UnityEngine.Random.value;
         audioSource.Play();

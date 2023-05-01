@@ -11,6 +11,8 @@ public class Jerry : MonoBehaviour
     Sprite neutralJerry;
     [SerializeField]
     Sprite talkingJerry;
+    [SerializeField]
+    Sprite tomatoJerry;
     bool isNeutral;
     float timeSinceChange;
     float changeInterval = 10000f;
@@ -32,6 +34,14 @@ public class Jerry : MonoBehaviour
     {
         actingSprite = talkingJerry;
         changeInterval = 0.2f;
+    }
+
+    public void GetTomated()
+    {
+        actingSprite = tomatoJerry;
+        isNeutral = false;
+        renderer.sprite = tomatoJerry;
+        changeInterval = 70000;
     }
 
     public void Stop()
