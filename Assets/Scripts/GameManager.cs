@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,11 +38,14 @@ public class GameManager : MonoBehaviour
     public int totalScore;
     Guid gameId;
 
+    [SerializeField] private UnityEvent gameStartEvent;
+
     public void StartNewGame()
     {
         gameId = System.Guid.NewGuid();
         audienceManager.RandomizeAudience();
         currentIndex = 0;
+        gameStartEvent.Invoke();
         Utils.SetTimeout(this, 3f, () =>
         {
             LoadNextLevel();

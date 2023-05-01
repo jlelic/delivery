@@ -31,10 +31,19 @@ public class PegManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private IntegerVariable bulletCount;
     [SerializeField] private IntegerVariable maxBulletCount;
+    [SerializeField] private FloatVariable gravityScale;
+    [SerializeField] private FloatVariable bulletScale;
 
     private HashSet<LETTER> collectedLetters = new HashSet<LETTER>();
 
     private GameObject currentLayout;
+
+    public void OnGameStart()
+    {
+        maxBulletCount.ResetValue();
+        gravityScale.ResetValue();
+        bulletScale.ResetValue();
+    }
 
     public void SetNewLevel(GameObject layoutPrefab)
     {
