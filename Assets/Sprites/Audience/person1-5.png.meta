@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9131d15268e28af418632388f8f2c205
+guid: 3a951c414bb74e640b987729b790aad9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: person2-1_0
+      name: person1-5_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23ae1b186861779488e67d07288fa733
-      internalID: 1866996870
+      spriteID: 42448eaa6a405bd42a19f2c8b73baaa3
+      internalID: -1147959245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_1
+      name: person1-5_1
       rect:
         serializedVersion: 2
         x: 308
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab5823933fc07c24cb747efdf36b3180
-      internalID: 1904346690
+      spriteID: 873efa706326a3b468caaeb00da2b882
+      internalID: -1750116800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_2
+      name: person1-5_2
       rect:
         serializedVersion: 2
         x: 616
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99b25b55b9682d24fb8e2434526e06c3
-      internalID: 626539008
+      spriteID: 52f970994ef1c684fb41c3e1e99ca090
+      internalID: -648138888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_3
+      name: person1-5_3
       rect:
         serializedVersion: 2
         x: 924
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da6dc4571ebb28e4c883e775cc48fed6
-      internalID: -765669384
+      spriteID: fcec05f1eb88f364aa76ef22fb227536
+      internalID: 616524328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_4
+      name: person1-5_4
       rect:
         serializedVersion: 2
         x: 1232
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a976913c58279774eb021d1b1cf53c39
-      internalID: -1180296432
+      spriteID: 8ac2d8a1982b784469f95db5b25af8f5
+      internalID: -436057868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_5
+      name: person1-5_5
       rect:
         serializedVersion: 2
         x: 1540
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2fcd0f15e5a97943a2ff657476cc4c9
-      internalID: -1761087463
+      spriteID: 235fdc4015bfe0e4eb638213e852b0b5
+      internalID: 391678115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_6
+      name: person1-5_6
       rect:
         serializedVersion: 2
         x: 1848
@@ -245,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c7bb50b035b3ab4da76c5e8cc77b645
-      internalID: 167679669
+      spriteID: b8528e15b6064e24f9c4764470b6b747
+      internalID: 76302600
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_7
+      name: person1-5_7
       rect:
         serializedVersion: 2
         x: 2156
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75a563868601db044a5cbd5cca33036f
-      internalID: 869628555
+      spriteID: 186eaaaef0fd62949acb70c212321f32
+      internalID: -2007872842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_8
+      name: person1-5_8
       rect:
         serializedVersion: 2
         x: 2464
@@ -287,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b7487b28bef4b74cafa2890fb2b7ea1
-      internalID: -1101118336
+      spriteID: 23087e1a050452e4f9efe59f5cbd3034
+      internalID: -809090964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: person2-1_9
+      name: person1-5_9
       rect:
         serializedVersion: 2
         x: 2772
@@ -308,8 +308,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18e7e787bf8b04e4d8e2822f5c0829aa
-      internalID: 1593125138
+      spriteID: c4ab3e1c1c7059844908685335be1798
+      internalID: 1466674778
       vertices: []
       indices: 
       edges: []
@@ -325,16 +325,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      person2-1_0: 1866996870
-      person2-1_1: 1904346690
-      person2-1_2: 626539008
-      person2-1_3: -765669384
-      person2-1_4: -1180296432
-      person2-1_5: -1761087463
-      person2-1_6: 167679669
-      person2-1_7: 869628555
-      person2-1_8: -1101118336
-      person2-1_9: 1593125138
+      person1-5_0: -1147959245
+      person1-5_1: -1750116800
+      person1-5_2: -648138888
+      person1-5_3: 616524328
+      person1-5_4: -436057868
+      person1-5_5: 391678115
+      person1-5_6: 76302600
+      person1-5_7: -2007872842
+      person1-5_8: -809090964
+      person1-5_9: 1466674778
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
