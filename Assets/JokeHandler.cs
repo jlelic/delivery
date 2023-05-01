@@ -33,9 +33,14 @@ public class JokeHandler : MonoBehaviour
     Jerry jerry;
     [SerializeField]
     ScoreBar scoreBar;
+    [SerializeField]
+    GameObject hint1;
+    [SerializeField]
+    GameObject hint2;
 
     bool canSubmit;
     bool canContinue;
+    bool doneTutorial;
     HashSet<char> allowedChars;
     RectTransform setupRectTransform;
     RectTransform punchlineRectTransform;
@@ -71,6 +76,8 @@ public class JokeHandler : MonoBehaviour
         punchlineImage = punchlineInputField.GetComponent<Image>();
         scoreBar.gameObject.SetActive(false);
         setupBubble.gameObject.SetActive(false);
+        hint1.gameObject.SetActive(false);
+        hint2.gameObject.SetActive(false);
         foreach (var t in reactionTexts)
         {
             t.gameObject.SetActive(false);
@@ -108,6 +115,7 @@ public class JokeHandler : MonoBehaviour
                 scoreBar.StartLoading();
                 LeanTween.move(scoreBarRectTransform, scoreBarTargetPosition, 1f).setEase(LeanTweenType.easeInBounce);
                 enterToContinue.gameObject.SetActive(false);
+                hint2.gameObject.SetActive(false);
                 jerry.Talk();
                 StartCoroutine(SubmitJoke());
             }
@@ -152,6 +160,10 @@ public class JokeHandler : MonoBehaviour
             LeanTween.move(pegBoard, pegBoardTargetPosition, 1f);
             Utils.SetTimeout(this, 1f, () => pegKeyboard.ShowKeyboard());
             Utils.SetTimeout(this, 2f, () => GameManager.Instance.pegGameManager.Enable());
+            if (!doneTutorial)
+            {
+                hint1.gameObject.SetActive(true);
+            }
             jerry.Think();
         }));
         canSubmit = false;
@@ -164,6 +176,12 @@ public class JokeHandler : MonoBehaviour
 
     public void ShowPunchlineInput(HashSet<LETTER> allowedLetters)
     {
+        if (!doneTutorial)
+        {
+            doneTutorial = true;
+            hint1.gameObject.SetActive(false);
+            hint2.gameObject.SetActive(true);
+        }
         LeanTween.move(pegBoard, pegBoardTargetPosition + new Vector3(0, 15, 0), 1f);
         LeanTween.moveX(keyboardRectTransform, 0, 1).setEase(LeanTweenType.easeInQuad);
         LeanTween.moveY(keyboardRectTransform, -80, 0.5f).setEase(LeanTweenType.linear);
