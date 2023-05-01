@@ -15,7 +15,7 @@ public class MusicMixer : MonoBehaviour
     [SerializeField] float segmentLength = 1.6f;
 
     private AudioSource musicSource;
-    private AudioSource noteSource;
+    private AudioSource[] noteSources;
 
     private float switchTime = -1f;
     private int switchIndex;
@@ -23,6 +23,7 @@ public class MusicMixer : MonoBehaviour
 
     private int nextNote = 0;
     private int noteDirection = 1;
+    private int currentNoteSourceIndex;
 
     void Awake()
     {
@@ -46,14 +47,15 @@ public class MusicMixer : MonoBehaviour
             return;
         }
         musicSource = audioSources[0];
-        noteSource = audioSources[1];
+        noteSources = new AudioSource[2] { audioSources[1], audioSources[2] };
         StartMusic();
     }
 
     void Update()
     {
         musicSource.volume = musicVolume;
-        noteSource.volume = effectsVolume;
+        noteSources[0].volume = effectsVolume;
+        noteSources[1].volume = effectsVolume;
 
         if (switchTime >= 0f && musicSource.time >= switchTime)
         {
@@ -111,6 +113,9 @@ public class MusicMixer : MonoBehaviour
 
     public void PlayNextNote(float pitch =1f)
     {
+        var noteSource = noteSources[currentNoteSourceIndex];
+        currentNoteSourceIndex = 1 - currentNoteSourceIndex;
+
         noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
@@ -127,6 +132,9 @@ public class MusicMixer : MonoBehaviour
 
     public void PlayPitchedNote(int note, float pitch)
     {
+        var noteSource = noteSources[currentNoteSourceIndex];
+        currentNoteSourceIndex = 1 - currentNoteSourceIndex;
+
         noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
@@ -136,6 +144,9 @@ public class MusicMixer : MonoBehaviour
 
     public void PlayEffect(int effectId, float pitch = 1)
     {
+        var noteSource = noteSources[currentNoteSourceIndex];
+        currentNoteSourceIndex = 1 - currentNoteSourceIndex;
+
         noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
