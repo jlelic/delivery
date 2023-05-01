@@ -43,10 +43,7 @@ public class MenuManager : MonoBehaviour
         {
             Utils.TweenColor(introOverlay, Color.clear, 0.5f);
         });
-        Utils.SetTimeout(this, 3f, () =>
-        {
-            GameManager.Instance.StartNewGame();
-        });
+        GameManager.Instance.StartNewGame();
     }
 
     public void ShowOutro(int totalScore)

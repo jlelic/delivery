@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour
     {
         audienceManager.RandomizeAudience();
         currentIndex = 0;
-        LoadNextLevel();
+        Utils.SetTimeout(this, 3f, () =>
+        {
+            LoadNextLevel();
+        });
     }
 
 
