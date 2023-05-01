@@ -26,18 +26,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PegManager pegGameManager;
     [SerializeField] public JokeHandler jokeHandler;
     [SerializeField] public MenuManager menuManager;
+    [SerializeField] public AudienceManager audienceManager;
 
     [SerializeField] private List<GameObject> levels;
 
     [Header("Important")]
     public GameObject tomato;
-
     public Boolean inputEnabled = true;
-
     private int currentIndex = 0;
+    public int totalScore;
+
+    public void StartNewGame()
+    {
+        audienceManager.RandomizeAudience();
+        currentIndex = 0;
+        LoadNextLevel();
+    }
+
 
     public void LoadNextLevel()
     {
+        if (currentIndex == 1)
+        {
+            menuManager.ShowOutro(totalScore);
+            return;
+        }
         pegGameManager.gameObject.SetActive(false);
 
         pegGameManager.SetNewLevel(levels[currentIndex]);

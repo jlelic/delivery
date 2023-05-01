@@ -23,8 +23,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.otherCollider.gameObject.name);
- 
         if (hit)
         {
             return;

@@ -22,8 +22,6 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     TMP_Text[] reactionTexts;
     [SerializeField]
-    Transform reactionZoneParent;
-    [SerializeField]
     TMP_Text enterToContinue;
     [SerializeField]
     PegKeyboard pegKeyboard;
@@ -39,7 +37,6 @@ public class JokeHandler : MonoBehaviour
     bool canSubmit;
     bool canContinue;
     HashSet<char> allowedChars;
-    List<Transform> reactionZones;
     RectTransform setupRectTransform;
     RectTransform punchlineRectTransform;
     RectTransform keyboardRectTransform;
@@ -57,11 +54,6 @@ public class JokeHandler : MonoBehaviour
         punchlineInputField.onValueChanged.AddListener(delegate { FilterInput(); });
         punchlineInputField.onDeselect.AddListener(delegate { punchlineInputField.ActivateInputField(); });
         punchlineInputField.gameObject.SetActive(false);
-        reactionZones = new List<Transform>();
-        for (int i = 0; i < reactionZoneParent.childCount; i++)
-        {
-            reactionZones.Add(reactionZoneParent.GetChild(i));
-        }
     }
 
     private void Start()
@@ -79,6 +71,10 @@ public class JokeHandler : MonoBehaviour
         punchlineImage = punchlineInputField.GetComponent<Image>();
         scoreBar.gameObject.SetActive(false);
         setupBubble.gameObject.SetActive(false);
+        foreach (var t in reactionTexts)
+        {
+            t.gameObject.SetActive(false);
+        }
 
         JokeDatabase.Reset();
     }
@@ -125,7 +121,10 @@ public class JokeHandler : MonoBehaviour
                 Utils.TweenColor(setupText, Utils.ClearWhite);
                 foreach (var t in reactionTexts)
                 {
-                    Utils.TweenColor(t, Utils.ClearWhite);
+                    if (t.gameObject.activeInHierarchy)
+                    {
+                        Utils.TweenColor(t, Utils.ClearWhite);
+                    }
                 }
                 Utils.SetTimeout(this, 1.5f, () => GameManager.Instance.LoadNextLevel());
             }
@@ -246,12 +245,12 @@ public class JokeHandler : MonoBehaviour
         scoreBar.AddScore(rating);
         MusicMixer.instance.HandleRatingReceived(rating);
 
-        Shuffle(reactionZones);
-        for (int i = 0; i < reactionTexts.Length; i++)
+        Shuffle(reactionTexts);
+        for (int i = 0; i < reactions.Length; i++)
         {
+            reactionTexts[i].gameObject.SetActive(true);
             reactionTexts[i].color = Color.white;
             reactionTexts[i].text = reactions[i];
-            reactionTexts[i].transform.position = reactionZones[i].transform.position;
         }
 
         Utils.SetTimeout(this, 4, () =>

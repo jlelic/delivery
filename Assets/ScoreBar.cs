@@ -83,6 +83,7 @@ public class ScoreBar : MonoBehaviour
             MusicMixer.instance.PlayEffect(1, 1 + i * 0.2f);
             yield return new WaitForSeconds(0.1f);
         }
+        GameManager.Instance.totalScore = score;
     }
 
     private void SetValue(int newValue)
@@ -104,7 +105,6 @@ public class ScoreBar : MonoBehaviour
             while (value != target)
             {
                 SetValue(value + diff);
-                Debug.Log("Target: " + target + "  Value: " + value);
                 yield return new WaitForSeconds(0.1f);
             }
         }

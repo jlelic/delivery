@@ -39,7 +39,18 @@ public class AudienceMember : MonoBehaviour
 
     public void Neutral()
     {
-        animationStartFrame = 6;
+        switch((AnimationStartFrame)animationStartFrame)
+        {
+            case AnimationStartFrame.Laugh:
+                animationStartFrame = (int)AnimationStartFrame.Giggle;
+                break;
+            case AnimationStartFrame.Bored:
+                animationStartFrame = (int)AnimationStartFrame.Bored;
+                break;
+            default:
+                animationStartFrame = (int)AnimationStartFrame.Neutral;
+                break;
+        }
     }
 
     public void React(int score)
