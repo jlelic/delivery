@@ -35,13 +35,13 @@ public class MenuManager : MonoBehaviour
         Utils.TweenColor(startGameButtonText, Color.clear);
         Utils.TweenColor(startGameButton, Utils.ClearWhite);
         startGameButton.enabled = false;
-        LeanTween.move(introOverlay.gameObject, introText.transform.position + new Vector3(10, 2, 0), 2f)
+        LeanTween.move(introOverlay.gameObject, introText.transform.position + new Vector3(7.5f, 0, 0), 1f)
             .setEase(LeanTweenType.easeInExpo);
-        LeanTween.scale(introOverlay.gameObject, Vector3.one * 2.5f, 2)
+        LeanTween.scale(introOverlay.gameObject, Vector3.one * 2.5f, 1f)
             .setEase(LeanTweenType.easeInExpo);
-        Utils.SetTimeout(this, 1.4f, () =>
+        Utils.SetTimeout(this, 0.5f, () =>
         {
-            Utils.TweenColor(introOverlay, Color.clear, 0.6f);
+            Utils.TweenColor(introOverlay, Color.clear, 0.5f);
         });
         Utils.SetTimeout(this, 3f, () =>
         {
