@@ -12,6 +12,8 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     GameObject setupBubble;
     [SerializeField]
+    GameObject setupTail;
+    [SerializeField]
     TMP_Text setupText;
     [SerializeField]
     TMP_InputField punchlineInputField;
@@ -37,6 +39,8 @@ public class JokeHandler : MonoBehaviour
     GameObject hint1;
     [SerializeField]
     GameObject hint2;
+    [SerializeField]
+    TMP_Text errorText;
 
     bool canSubmit;
     bool canContinue;
@@ -52,7 +56,13 @@ public class JokeHandler : MonoBehaviour
     Vector2 scoreBarTargetPosition;
     Vector3 pegBoardTargetPosition;
     Image setupImage;
+    SpriteRenderer setupTailImage;
     Image punchlineImage;
+    Guid currentGameId;
+
+    string[] offlineReactions = new string[]{
+                "hahaha", "meh", "good one!", "not bad", "clever!", "nice try", "almost", "what a punchline", "seen better", "ouch", "interesting"
+            };
 
     private void Awake()
     {
@@ -73,11 +83,13 @@ public class JokeHandler : MonoBehaviour
         scoreBarRectTransform = scoreBar.GetComponent<RectTransform>();
         scoreBarTargetPosition = scoreBarRectTransform.anchoredPosition;
         setupImage = setupBubble.GetComponent<Image>();
+        setupTailImage = setupTail.GetComponent<SpriteRenderer>();
         punchlineImage = punchlineInputField.GetComponent<Image>();
         scoreBar.gameObject.SetActive(false);
         setupBubble.gameObject.SetActive(false);
         hint1.gameObject.SetActive(false);
         hint2.gameObject.SetActive(false);
+        errorText.transform.parent.gameObject.SetActive(false);
         foreach (var t in reactionTexts)
         {
             t.gameObject.SetActive(false);
@@ -104,10 +116,11 @@ public class JokeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if (canSubmit)
             {
+                errorText.transform.parent.gameObject.SetActive(false);
                 canSubmit = false;
                 punchlineInputField.interactable = false;
                 pegKeyboard.StopScanning();
@@ -127,6 +140,7 @@ public class JokeHandler : MonoBehaviour
                 Utils.TweenColor(punchlineText, Utils.ClearWhite);
                 Utils.TweenColor(setupImage, Utils.ClearWhite);
                 Utils.TweenColor(setupText, Utils.ClearWhite);
+                Utils.TweenColor(setupTailImage, Utils.ClearWhite);
                 foreach (var t in reactionTexts)
                 {
                     if (t.gameObject.activeInHierarchy)
@@ -139,8 +153,9 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    public void SetUpNewLevel(int number)
+    public void SetUpNewLevel(int number, Guid gameId)
     {
+        currentGameId = gameId;
         JokeCategory category = number == 0 ? JokeCategory.Simple : JokeCategory.General;
         var jokeSetup = JokeDatabase.GetJokeSetup(category);
         jerry.Talk();
@@ -222,31 +237,32 @@ public class JokeHandler : MonoBehaviour
         var identifier = SystemInfo.deviceUniqueIdentifier;
         var time = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var checksum = Djb2(String.Concat(setup, punchline, identifier, time));
-        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"env\":\"{5}\"}}",
+        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\"}}",
             setup,
             punchline,
             identifier,
             time,
             checksum,
-            "dev"
+            Application.platform.ToString(),
+            currentGameId.ToString()
         );
         Debug.Log(payload);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
-        //        yield break;
+        //yield return new WaitForSeconds(3);
         yield return request.SendWebRequest();
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
         string[] reactions = new string[] { "eyy", "huh", "hmmm" };
-        if (request.result != UnityWebRequest.Result.Success)
+        try
         {
-            // Improvise
-            yield break;
-        }
-        else
-        {
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                throw new Exception(request.error);
+            }
+
             var responseBody = request.downloadHandler.text;
             Debug.Log(responseBody);
             var split = responseBody.Split(';');
@@ -255,6 +271,26 @@ public class JokeHandler : MonoBehaviour
             reactions[0] = split[1];
             reactions[1] = split[2];
             reactions[2] = split[3];
+        }
+        catch(Exception e)
+        {
+            Debug.Log("ERROR WHILE GETTING RATING");
+            Debug.LogError(e);
+            errorText.transform.parent.gameObject.SetActive(true);
+            if (request.error != null)
+            {
+                errorText.text = request.error.ToString();
+            }
+            var uniqueChars = CountUniqueCharacters(punchline);
+            Debug.Log(uniqueChars);
+            var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length, 6, 30);
+            Debug.Log(ratio);
+            rating = (int)Mathf.Clamp(Mathf.Round(ratio * 10) - 1.5f + UnityEngine.Random.value * 3, 0, 10);
+            Debug.Log(rating);
+            Shuffle(offlineReactions);
+            reactions[0] = offlineReactions[0];
+            reactions[1] = offlineReactions[2];
+            reactions[2] = offlineReactions[1];
         }
 
         Utils.TweenColor(ratingText, Color.white);
@@ -293,7 +329,7 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    IEnumerator SlowlyFillText(TMP_Text tmpText, string text, float delay = 0f, Action callback = null, float speed = 0.1f)
+    IEnumerator SlowlyFillText(TMP_Text tmpText, string text, float delay = 0f, Action callback = null, float speed = 0.05f)
     {
         tmpText.text = "";
         yield return new WaitForSeconds(delay);
@@ -319,5 +355,15 @@ public class JokeHandler : MonoBehaviour
             }
         }
         return hash;
+    }
+
+    private static int CountUniqueCharacters(string input)
+    {
+        HashSet<char> uniqueChars = new HashSet<char>();
+        foreach (char c in input)
+        {
+            uniqueChars.Add(c);
+        }
+        return uniqueChars.Count;
     }
 }

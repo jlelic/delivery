@@ -35,9 +35,11 @@ public class GameManager : MonoBehaviour
     public Boolean inputEnabled = true;
     private int currentIndex = 0;
     public int totalScore;
+    Guid gameId;
 
     public void StartNewGame()
     {
+        gameId = System.Guid.NewGuid();
         audienceManager.RandomizeAudience();
         currentIndex = 0;
         Utils.SetTimeout(this, 3f, () =>
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
         pegGameManager.gameObject.SetActive(false);
 
         pegGameManager.SetNewLevel(levels[currentIndex]);
-        jokeHandler.SetUpNewLevel(currentIndex);
+        jokeHandler.SetUpNewLevel(currentIndex, gameId);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
     }
