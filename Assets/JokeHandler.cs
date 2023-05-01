@@ -59,6 +59,7 @@ public class JokeHandler : MonoBehaviour
     SpriteRenderer setupTailImage;
     Image punchlineImage;
     Guid currentGameId;
+    int availableLettersCount;
 
     string[] offlineReactions = new string[]{
                 "hahaha", "meh", "good one!", "not bad", "clever!", "nice try", "almost", "what a punchline", "seen better", "ouch", "interesting"
@@ -201,11 +202,13 @@ public class JokeHandler : MonoBehaviour
         LeanTween.moveX(keyboardRectTransform, 0, 1).setEase(LeanTweenType.easeInQuad);
         LeanTween.moveY(keyboardRectTransform, -80, 0.5f).setEase(LeanTweenType.linear);
         HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ', '-', '"' };
+        availableLettersCount = 0;
         foreach (var l in allowedLetters)
         {
             var str = l.ToString();
             allowedChars.Add(str.ToUpper()[0]);
             allowedChars.Add(str.ToLower()[0]);
+            availableLettersCount++;
         }
         this.allowedChars = allowedChars;
         punchlineRectTransform.anchoredPosition = punchlineTargetPosition - new Vector2(0, 100);
@@ -237,14 +240,15 @@ public class JokeHandler : MonoBehaviour
         var identifier = SystemInfo.deviceUniqueIdentifier;
         var time = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var checksum = Djb2(String.Concat(setup, punchline, identifier, time));
-        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\"}}",
+        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\",\"letters\":{7}}}",
             setup,
             punchline,
             identifier,
             time,
             checksum,
             Application.platform.ToString(),
-            currentGameId.ToString()
+            currentGameId.ToString(),
+            availableLettersCount
         );
         Debug.Log(payload);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
