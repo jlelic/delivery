@@ -293,7 +293,7 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    IEnumerator SlowlyFillText(TMP_Text tmpText, string text, float delay = 0f, Action callback = null, float speed = 0.1f)
+    IEnumerator SlowlyFillText(TMP_Text tmpText, string text, float delay = 0f, Action callback = null, float speed = 0.05f)
     {
         tmpText.text = "";
         yield return new WaitForSeconds(delay);
