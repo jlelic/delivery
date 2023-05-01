@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("Managers")]
     [SerializeField] public PegManager pegGameManager;
     [SerializeField] public JokeHandler jokeHandler;
+    [SerializeField] public MenuManager menuManager;
 
     [SerializeField] private List<GameObject> levels;
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
+        menuManager.gameObject.SetActive(true);
+        //Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
     }
 }

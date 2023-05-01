@@ -61,6 +61,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b4dfe771467d33444af841772e391dcc, type: 3}
   - {fileID: 8300000, guid: cd387ddb7c3cd8948a3d920524d98a5d, type: 3}
   - {fileID: 8300000, guid: 8cd8be2fb8ccaef44bca3aa79bdbed38, type: 3}
+  effectClips:
+  - {fileID: 8300000, guid: 8fe7bff91cc09eb46b9143049c7980a8, type: 3}
+  - {fileID: 8300000, guid: e2b0744bac826924caf5d746f326c5c4, type: 3}
   segmentLength: 2.4
 --- !u!82 &6203131056082596492
 AudioSource:

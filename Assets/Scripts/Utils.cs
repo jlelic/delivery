@@ -20,7 +20,7 @@ public static class Utils
         action.Invoke();
     }
 
-    public static void TweenColor(Image image, Color toColor, float duration = 1f, float delay = 1f)
+    public static void TweenColor(Image image, Color toColor, float duration = 1f)
     {
         LeanTween.value(image.gameObject, (c) =>
         {
@@ -29,7 +29,7 @@ public static class Utils
 
     }
 
-    internal static void TweenColor(SpriteRenderer spriteRenderer, Color toColor, float duration = 1f, float delay = 1f)
+    internal static void TweenColor(SpriteRenderer spriteRenderer, Color toColor, float duration = 1f)
     {
         LeanTween.value(spriteRenderer.gameObject, (c) =>
         {
@@ -37,7 +37,7 @@ public static class Utils
         }, spriteRenderer.color, toColor, duration);
     }
 
-    internal static void TweenColor(TMP_Text text, Color toColor, float duration = 1f, float delay = 1f)
+    internal static void TweenColor(TMP_Text text, Color toColor, float duration = 1f)
     {
         LeanTween.value(text.gameObject, (c) =>
         {

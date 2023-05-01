@@ -78,6 +78,7 @@ public class JokeHandler : MonoBehaviour
         setupImage = setupBubble.GetComponent<Image>();
         punchlineImage = punchlineInputField.GetComponent<Image>();
         scoreBar.gameObject.SetActive(false);
+        setupBubble.gameObject.SetActive(false);
 
         JokeDatabase.Reset();
     }
@@ -108,8 +109,6 @@ public class JokeHandler : MonoBehaviour
                 punchlineInputField.interactable = false;
                 pegKeyboard.StopScanning();
                 LeanTween.moveY(keyboardRectTransform, -200, 1f).setEase(LeanTweenType.linear);
-                scoreBar.gameObject.SetActive(true);
-                scoreBarRectTransform.anchoredPosition = scoreBarTargetPosition + 200 * Vector2.up;
                 scoreBar.StartLoading();
                 LeanTween.move(scoreBarRectTransform, scoreBarTargetPosition, 1f).setEase(LeanTweenType.easeInBounce);
                 enterToContinue.gameObject.SetActive(false);
@@ -139,6 +138,8 @@ public class JokeHandler : MonoBehaviour
         var jokeSetup = JokeDatabase.GetJokeSetup(category);
         jerry.Talk();
         audienceManager.Neutral();
+        scoreBar.gameObject.SetActive(true);
+        scoreBarRectTransform.anchoredPosition = scoreBarTargetPosition + 200 * Vector2.up;
         setupBubble.gameObject.SetActive(true);
         setupImage.color = Color.white;
         setupText.color = Color.black;

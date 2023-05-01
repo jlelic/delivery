@@ -10,6 +10,7 @@ public class MusicMixer : MonoBehaviour
     [SerializeField] float volume = 1;
     [SerializeField] AudioClip[] musicClips;
     [SerializeField] AudioClip[] noteClips;
+    [SerializeField] AudioClip[] effectClips;
     [SerializeField] float segmentLength = 1.6f;
 
     private AudioSource musicSource;
@@ -132,6 +133,16 @@ public class MusicMixer : MonoBehaviour
         noteSource.loop = false;
         noteSource.volume = volume;
         noteSource.clip = noteClips[note];
+        noteSource.Play();
+    }
+
+    public void PlayEffect(int effectId, float pitch = 1)
+    {
+        noteSource.pitch = pitch;
+        noteSource.Stop();
+        noteSource.loop = false;
+        noteSource.volume = volume;
+        noteSource.clip = effectClips[effectId];
         noteSource.Play();
     }
 

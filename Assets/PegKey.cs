@@ -47,6 +47,7 @@ public class PegKey : MonoBehaviour
 
         if (!isActive)
         {
+            MusicMixer.instance.PlayEffect(0, 1);
             transform.localScale = Vector3.one;
             LTSeq sequence = LeanTween.sequence();
             sequence.append(LeanTween.scale(gameObject, Vector3.one * 1.5f, 0.1f).setEase(LeanTweenType.easeInCubic));

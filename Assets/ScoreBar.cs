@@ -80,7 +80,7 @@ public class ScoreBar : MonoBehaviour
         {
             score++;
             scoreText.text = "Score: " + score;
-            MusicMixer.instance.PlayPitchedNote(5, 2 + i * 0.2f);
+            MusicMixer.instance.PlayEffect(1, 1 + i * 0.2f);
             yield return new WaitForSeconds(0.1f);
         }
     }
