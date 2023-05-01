@@ -781,9 +781,9 @@ RectTransform:
   m_Father: {fileID: 2125142421}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -263.03217, y: 138}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -83.032166, y: 18}
   m_SizeDelta: {x: 89.70999, y: 62.08}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &120777795
@@ -3813,8 +3813,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "It's not easy to land a gig at a comedy club on a bustling Friday night,
-    especially if you've never set foot on stage before and can't spell.\n\n    
-    However, you're not just any ordinary performer.\n              you're an... "
+    especially if you've never set foot on stage before and can't spell.\n\n        
+    ... which leaves you feeling \n                                                
+    a bit like an"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5dff3194574df1146a28b3907e3bd79b, type: 2}
   m_sharedMaterial: {fileID: -1743778861615924092, guid: 5dff3194574df1146a28b3907e3bd79b, type: 2}
@@ -4508,7 +4509,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.735849, g: 0.4887148, b: 0.4887148, a: 1}
     m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -12277,9 +12278,9 @@ RectTransform:
   m_Father: {fileID: 2125142421}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -263.03217, y: -37.29001}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -83.032166, y: 82.70999}
   m_SizeDelta: {x: 89.71, y: 57.84}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1849778647
@@ -12551,7 +12552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1948919035
 MonoBehaviour:
   m_ObjectHideFlags: 0
