@@ -25,13 +25,13 @@ public class Jerry : MonoBehaviour
     public void Think()
     {
         actingSprite = thinkingJerry;
-        changeInterval = 2f;
+        changeInterval = 1.5f;
     }
 
     public void Talk()
     {
         actingSprite = talkingJerry;
-        changeInterval = 0.5f;
+        changeInterval = 0.2f;
     }
 
     public void Stop()
