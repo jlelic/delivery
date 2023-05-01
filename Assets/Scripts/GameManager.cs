@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     [Header("Important")]
     public GameObject tomato;
 
+    public Boolean inputEnabled = true;
+
     private int currentIndex = 0;
 
     public void LoadNextLevel()
@@ -54,5 +56,15 @@ public class GameManager : MonoBehaviour
     {
         menuManager.gameObject.SetActive(true);
         //Utils.SetTimeout(this, 0.2f, () => LoadNextLevel());
+    }
+
+    public void DisableInput()
+    {
+        inputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        inputEnabled = true;
     }
 }

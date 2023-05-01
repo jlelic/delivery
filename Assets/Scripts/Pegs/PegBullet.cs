@@ -37,22 +37,19 @@ public class PegBullet : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (Input.GetMouseButton(0) && !isMoving)
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y).normalized;
+        DrawTrajectory();
+
+        if (GameManager.Instance.inputEnabled && Input.GetMouseButtonDown(0) && !isMoving)
         {
             rb.gravityScale = gravityScale.value;
             rb.AddForce(direction.normalized * moveSpeed.value, ForceMode2D.Impulse);
             isMoving = true;
             bulletCount.SetValue(Mathf.Max(0, bulletCount.value - 1));
         }
-    }
-
-    private void Update()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y).normalized;
-        DrawTrajectory();
     }
 
     private void DrawTrajectory()
