@@ -12,10 +12,12 @@ public class MusicMixer : MonoBehaviour
     [SerializeField] AudioClip[] musicClips;
     [SerializeField] AudioClip[] noteClips;
     [SerializeField] AudioClip[] effectClips;
+    [SerializeField] AudioClip[] crowdClips;
     [SerializeField] float segmentLength = 1.6f;
 
     private AudioSource musicSource;
     private AudioSource[] noteSources;
+    private AudioSource crowdSource;
 
     private float switchTime = -1f;
     private int switchIndex;
@@ -48,6 +50,7 @@ public class MusicMixer : MonoBehaviour
         }
         musicSource = audioSources[0];
         noteSources = new AudioSource[2] { audioSources[1], audioSources[2] };
+        crowdSource = audioSources[3];
         StartMusic();
     }
 
@@ -56,6 +59,7 @@ public class MusicMixer : MonoBehaviour
         musicSource.volume = musicVolume;
         noteSources[0].volume = effectsVolume;
         noteSources[1].volume = effectsVolume;
+        crowdSource.volume = effectsVolume * 0.5f;
 
         if (switchTime >= 0f && musicSource.time >= switchTime)
         {
@@ -156,6 +160,18 @@ public class MusicMixer : MonoBehaviour
 
     public void HandleRatingReceived(int rating)
     {
+        int crowdClip = rating;
+        if(rating >= 7)
+        {
+            crowdClip += UnityEngine.Random.Range(0,2);
+        }
+        if(crowdClip >= crowdClips.Length)
+        {
+            crowdClip = crowdClips.Length - 1;
+        }
+        crowdSource.clip = crowdClips[crowdClip];
+        crowdSource.Play();
+
         if (rating <= 2)
         {
             QueueLower();
