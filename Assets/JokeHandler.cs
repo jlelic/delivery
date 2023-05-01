@@ -58,6 +58,7 @@ public class JokeHandler : MonoBehaviour
     Image setupImage;
     SpriteRenderer setupTailImage;
     Image punchlineImage;
+    Guid currentGameId;
 
     string[] offlineReactions = new string[]{
                 "hahaha", "meh", "good one!", "not bad", "clever!", "nice try", "almost", "what a punchline", "seen better", "ouch", "interesting"
@@ -152,8 +153,9 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    public void SetUpNewLevel(int number)
+    public void SetUpNewLevel(int number, Guid gameId)
     {
+        currentGameId = gameId;
         JokeCategory category = number == 0 ? JokeCategory.Simple : JokeCategory.General;
         var jokeSetup = JokeDatabase.GetJokeSetup(category);
         jerry.Talk();
@@ -235,13 +237,14 @@ public class JokeHandler : MonoBehaviour
         var identifier = SystemInfo.deviceUniqueIdentifier;
         var time = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var checksum = Djb2(String.Concat(setup, punchline, identifier, time));
-        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"env\":\"{5}\"}}",
+        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\"}}",
             setup,
             punchline,
             identifier,
             time,
             checksum,
-            "dev"
+            Application.platform.ToString(),
+            currentGameId.ToString()
         );
         Debug.Log(payload);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
@@ -253,8 +256,13 @@ public class JokeHandler : MonoBehaviour
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
         string[] reactions = new string[] { "eyy", "huh", "hmmm" };
-        if (request.result == UnityWebRequest.Result.Success)
+        try
         {
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                throw new Exception(request.error);
+            }
+
             var responseBody = request.downloadHandler.text;
             Debug.Log(responseBody);
             var split = responseBody.Split(';');
@@ -264,10 +272,15 @@ public class JokeHandler : MonoBehaviour
             reactions[1] = split[2];
             reactions[2] = split[3];
         }
-        else
+        catch(Exception e)
         {
+            Debug.Log("ERROR WHILE GETTING RATING");
+            Debug.LogError(e);
             errorText.transform.parent.gameObject.SetActive(true);
-            errorText.text = request.error.ToString();
+            if (request.error != null)
+            {
+                errorText.text = request.error.ToString();
+            }
             var uniqueChars = CountUniqueCharacters(punchline);
             Debug.Log(uniqueChars);
             var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length, 6, 30);
