@@ -17,11 +17,14 @@ public class MenuManager : MonoBehaviour
     Image startGameButton;
     [SerializeField]
     SpriteRenderer introOverlay;
+    [SerializeField]
+    TMP_Text creditsText;
 
     void Start()
     {
         introText.color = Color.white;
         titleText.color = new Color(0.76f, 0.2f, 0.2f); //red
+        creditsText.color = Color.white;
         startGameButtonText.color = Color.black;
         startGameButton.color = Color.white;
         introOverlay.gameObject.SetActive(true);
@@ -32,6 +35,7 @@ public class MenuManager : MonoBehaviour
     {
         Utils.TweenColor(introText, Utils.ClearWhite);
         Utils.TweenColor(titleText, Utils.ClearWhite);
+        Utils.TweenColor(creditsText, Utils.ClearWhite);
 
         startGameButton.enabled = false;
         startGameButton.gameObject.SetActive(false);
@@ -51,6 +55,7 @@ public class MenuManager : MonoBehaviour
         introText.text = GetResultString(totalScore) + "\n\nFinal score: " + totalScore;
         Utils.TweenColor(introText, Color.white, 3);
         Utils.TweenColor(titleText, new Color(0.76f, 0.2f, 0.2f)); // red
+        Utils.TweenColor(creditsText, Color.white, 3);
         Utils.TweenColor(introOverlay, Color.black, 2f);
         LeanTween.move(introOverlay.gameObject, Vector3.zero, 2f)
             .setEase(LeanTweenType.easeOutExpo);
