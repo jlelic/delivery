@@ -59,7 +59,8 @@ public class JokeHandler : MonoBehaviour
     SpriteRenderer setupTailImage;
     Image punchlineImage;
     Guid currentGameId;
-    int availableLettersCount;
+    string availableLetters;
+    int currentLevel;
 
     string[] offlineReactions = new string[]{
                 "hahaha", "meh", "good one!", "not bad", "clever!", "nice try", "almost", "what a punchline", "seen better", "ouch", "interesting"
@@ -102,7 +103,6 @@ public class JokeHandler : MonoBehaviour
     void FilterInput()
     {
         var currentValue = punchlineInputField.text;
-        Debug.Log(currentValue);
         var newValueBuilder = new StringBuilder();
         foreach (var ch in currentValue)
         {
@@ -155,9 +155,10 @@ public class JokeHandler : MonoBehaviour
         }
     }
 
-    public void SetUpNewLevel(int number, Guid gameId)
+    public void SetUpNewLevel(int number, Guid gameId, int level)
     {
         currentGameId = gameId;
+        currentLevel = level;
         JokeCategory category = number == 0 ? JokeCategory.Simple : JokeCategory.General;
         var jokeSetup = JokeDatabase.GetJokeSetup(category);
         jerry.Talk();
@@ -203,14 +204,17 @@ public class JokeHandler : MonoBehaviour
         LeanTween.moveX(keyboardRectTransform, 0, 1).setEase(LeanTweenType.easeInQuad);
         LeanTween.moveY(keyboardRectTransform, -80, 0.5f).setEase(LeanTweenType.linear);
         HashSet<char> allowedChars = new HashSet<char> { '.', '\'', '?', '!', ',', ' ', '-', '"' };
-        availableLettersCount = 0;
+        var allowerLettersList = new List<char>();
         foreach (var l in allowedLetters)
         {
             var str = l.ToString();
             allowedChars.Add(str.ToUpper()[0]);
             allowedChars.Add(str.ToLower()[0]);
-            availableLettersCount++;
+            allowerLettersList.Add(str.ToUpper()[0]);
         }
+        var alArray = allowerLettersList.ToArray();
+        Array.Sort(alArray);
+        availableLetters = new string(alArray);
         this.allowedChars = allowedChars;
         punchlineRectTransform.anchoredPosition = punchlineTargetPosition - new Vector2(0, 100);
         punchlineInputField.gameObject.SetActive(true);
@@ -241,7 +245,7 @@ public class JokeHandler : MonoBehaviour
         var identifier = SystemInfo.deviceUniqueIdentifier;
         var time = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var checksum = Djb2(String.Concat(setup, punchline, identifier, time));
-        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\",\"letters\":{7}}}",
+        var payload = string.Format("{{\"setup\":\"{0}\",\"punchline\":\"{1}\",\"id\":\"{2}\",\"time\":\"{3}\",\"checksum\":\"{4}\",\"platform\":\"{5}\",\"game\":\"{6}\",\"level\":{7},\"letters\":\"{8}\"}}",
             setup,
             punchline,
             identifier,
@@ -249,7 +253,8 @@ public class JokeHandler : MonoBehaviour
             checksum,
             Application.platform.ToString(),
             currentGameId.ToString(),
-            availableLettersCount
+            currentLevel,
+            availableLetters
         );
         Debug.Log(payload);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
@@ -287,11 +292,8 @@ public class JokeHandler : MonoBehaviour
                 errorText.text = request.error.ToString();
             }
             var uniqueChars = CountUniqueCharacters(punchline);
-            Debug.Log(uniqueChars);
             var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length, 6, 30);
-            Debug.Log(ratio);
             rating = (int)Mathf.Clamp(Mathf.Round(ratio * 10) - 1.5f + UnityEngine.Random.value * 3, 0, 10);
-            Debug.Log(rating);
             Shuffle(offlineReactions);
             reactions[0] = offlineReactions[0];
             reactions[1] = offlineReactions[2];

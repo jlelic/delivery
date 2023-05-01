@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         pegGameManager.gameObject.SetActive(false);
 
         pegGameManager.SetNewLevel(levels[currentIndex]);
-        jokeHandler.SetUpNewLevel(currentIndex, gameId);
+        jokeHandler.SetUpNewLevel(currentIndex, gameId, currentIndex);
         currentIndex++;
         pegGameManager.gameObject.SetActive(true);
     }
