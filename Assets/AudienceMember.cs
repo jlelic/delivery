@@ -34,7 +34,6 @@ public class AudienceMember : MonoBehaviour
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
-        Utils.SetTimeout(this, 1, () => React(0));
     }
 
     public void Neutral()
