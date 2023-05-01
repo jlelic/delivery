@@ -3381,7 +3381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &872000881
 Transform:
   m_ObjectHideFlags: 0
@@ -6739,6 +6739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pegGameManager: {fileID: 1131091037}
   jokeHandler: {fileID: 2125142422}
+  menuManager: {fileID: 1948919039}
   levels:
   - {fileID: 3435126817714675034, guid: 274cace46bc90884db8c94320fc20336, type: 3}
   - {fileID: 2582184618366002940, guid: bbb071d413ac76945bcc689bf9142b29, type: 3}
@@ -9351,7 +9352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1948919035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9452,7 +9453,7 @@ MonoBehaviour:
   titleText: {fileID: 83907937}
   startGameButtonText: {fileID: 1758821839}
   startGameButton: {fileID: 753824540}
-  IntroOverlay: {fileID: 872000882}
+  introOverlay: {fileID: 872000882}
 --- !u!1 &1976725144
 GameObject:
   m_ObjectHideFlags: 0
