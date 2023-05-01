@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8234655833683917571}
   - component: {fileID: 8234655833683917568}
+  - component: {fileID: 3207776374609248655}
   - component: {fileID: 8234655833683917569}
   m_Layer: 0
   m_Name: Peg Manager
@@ -138,6 +139,36 @@ MonoBehaviour:
   particleTemplate: {fileID: 0}
   bulletCount: {fileID: 11400000, guid: 3e0bcddb28d214541ac02a20627ac065, type: 2}
   maxBulletCount: {fileID: 11400000, guid: 259cc8d44008fae49aadfae0d5f7d0dd, type: 2}
+  gravityScale: {fileID: 11400000, guid: b67c1d1cd94f59b4fab14586597699aa, type: 2}
+  bulletScale: {fileID: 11400000, guid: da0921b4ec8569749b0e68abb0eabf48, type: 2}
+--- !u!114 &3207776374609248655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234655833683917574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0a33856675ba04d99afdf200647d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 0e0451c93b69b384a8e6470432c4213c, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8234655833683917568}
+        m_TargetAssemblyTypeName: PegManager, Assembly-CSharp
+        m_MethodName: OnGameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8234655833683917569
 MonoBehaviour:
   m_ObjectHideFlags: 0

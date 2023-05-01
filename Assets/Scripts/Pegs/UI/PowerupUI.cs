@@ -14,10 +14,15 @@ public class PowerupUI : MonoBehaviour
 
     private List<POWER_UP> collectedPowerUps = new List<POWER_UP>();
 
+    public void OnGameStart()
+    {
+        collectedPowerUps.Clear();
+        RerenderPowerups();
+    }
+
     public void OnMaxBulletCountCollected()
     {
         collectedPowerUps.Add(POWER_UP.BULLET_MAX_MODIFIER);
-
         RerenderPowerups();
     }
 
