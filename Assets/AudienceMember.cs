@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AudienceMemberPosition
+{
+    Back = 0,
+    Right = 1
+}
+
 enum AnimationStartFrame
 {
     Laugh = 0,
@@ -14,12 +20,12 @@ enum AnimationStartFrame
 public class AudienceMember : MonoBehaviour
 {
     new SpriteRenderer renderer;
-
-    [SerializeField]
-    Sprite[] spriteSheet;
+    public Sprite[] spriteSheet;
 
     [SerializeField]
     Transform projectileSource;
+
+    public AudienceMemberPosition position;
 
     int animationFrame;
     int animationStartFrame;
