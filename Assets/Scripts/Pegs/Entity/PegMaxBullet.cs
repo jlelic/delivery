@@ -9,6 +9,7 @@ public class PegMaxBullet : Peg
     public override void OnPlayerCollision()
     {
         maxBulletCount.SetValue(maxBulletCount.value + MAX_BULLET_INCREASE);
+        MusicMixer.instance.PlayEffect(1);
         Destroy(gameObject);
     }
 }

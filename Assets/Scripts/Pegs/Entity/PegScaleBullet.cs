@@ -9,6 +9,7 @@ public class PegScaleBullet : Peg
     public override void OnPlayerCollision()
     {
         bulletScale.SetValue(bulletScale.value + BULLET_SCALE_MODIFIER);
+        MusicMixer.instance.PlayEffect(1);
         Destroy(gameObject);
     }
 }

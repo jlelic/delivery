@@ -109,9 +109,9 @@ public class MusicMixer : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void PlayNextNote()
+    public void PlayNextNote(float pitch =1f)
     {
-        noteSource.pitch = 1;
+        noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
 

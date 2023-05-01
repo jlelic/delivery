@@ -9,6 +9,7 @@ public class PegGravityBullet : Peg
     public override void OnPlayerCollision()
     {
         gravityScale.SetValue(gravityScale.value + GRAVITY_SCALE_MODIFIER);
+        MusicMixer.instance.PlayEffect(1);
         Destroy(gameObject);
     }
 }

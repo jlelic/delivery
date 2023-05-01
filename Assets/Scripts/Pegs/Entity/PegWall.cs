@@ -18,10 +18,12 @@ public class PegWall : Peg
         {
             TriggerParticleEfect();
             Destroy(gameObject);
+            MusicMixer.instance.PlayNextNote(0.6f);
         }
         else
         {
             spriteRenderer.sprite = hitStateSprites[hits];
+            MusicMixer.instance.PlayNextNote(0.3f);
         }
     }
 
