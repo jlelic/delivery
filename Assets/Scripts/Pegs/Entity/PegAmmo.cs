@@ -6,6 +6,7 @@ public class PegAmmo : Peg
 
     public override void OnPlayerCollision()
     {
+        MusicMixer.instance.PlayEffect(1);
         bulletCount.SetValue(bulletCount.value + 1);
         Destroy(gameObject);
     }
