@@ -68,7 +68,7 @@ public class PegBullet : MonoBehaviour
         foreach (Transform dot in trajectoryDots)
         {
             Vector2 pathPosition = CalculateParabolicPosition(transform.position, direction, moveSpeed.value, t);
-            dot.position = new Vector3(pathPosition.x, pathPosition.y, -1f);
+            dot.position = new Vector3(pathPosition.x, pathPosition.y, transform.position.z - 0.5f);
             t += 0.05f;
         }
         CheckTrajectoryCollision();

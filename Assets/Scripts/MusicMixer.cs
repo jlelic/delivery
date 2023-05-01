@@ -7,7 +7,8 @@ public class MusicMixer : MonoBehaviour
     public static MusicMixer instance;
 
     [Range(0f, 2f)]
-    [SerializeField] float volume = 1;
+    [SerializeField] float musicVolume = 1;
+    [SerializeField] float effectsVolume = 1;
     [SerializeField] AudioClip[] musicClips;
     [SerializeField] AudioClip[] noteClips;
     [SerializeField] AudioClip[] effectClips;
@@ -51,8 +52,8 @@ public class MusicMixer : MonoBehaviour
 
     void Update()
     {
-        musicSource.volume = volume;
-        noteSource.volume = volume;
+        musicSource.volume = musicVolume;
+        noteSource.volume = effectsVolume;
 
         if (switchTime >= 0f && musicSource.time >= switchTime)
         {
@@ -77,7 +78,6 @@ public class MusicMixer : MonoBehaviour
     {
         musicSource.Stop();
         musicSource.clip = musicClips[0];
-        musicSource.volume = volume;
         musicSource.loop = true;
         musicSource.Play();
     }
@@ -114,7 +114,6 @@ public class MusicMixer : MonoBehaviour
         noteSource.pitch = 1;
         noteSource.Stop();
         noteSource.loop = false;
-        noteSource.volume = volume;
 
         noteSource.clip = noteClips[nextNote];
         noteSource.Play();
@@ -131,7 +130,6 @@ public class MusicMixer : MonoBehaviour
         noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
-        noteSource.volume = volume;
         noteSource.clip = noteClips[note];
         noteSource.Play();
     }
@@ -141,7 +139,6 @@ public class MusicMixer : MonoBehaviour
         noteSource.pitch = pitch;
         noteSource.Stop();
         noteSource.loop = false;
-        noteSource.volume = volume;
         noteSource.clip = effectClips[effectId];
         noteSource.Play();
     }
@@ -156,5 +153,16 @@ public class MusicMixer : MonoBehaviour
         {
             QueueHigher();
         }
+    }
+
+
+    public void SetMusicVolume(float volume)
+    {
+        this.musicVolume = volume;
+    }
+
+    public void SetEffectsVolume(float volume)
+    {
+        this.effectsVolume = volume;
     }
 }
