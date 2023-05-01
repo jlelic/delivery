@@ -37,6 +37,8 @@ public class JokeHandler : MonoBehaviour
     GameObject hint1;
     [SerializeField]
     GameObject hint2;
+    [SerializeField]
+    TMP_Text errorText;
 
     bool canSubmit;
     bool canContinue;
@@ -53,6 +55,10 @@ public class JokeHandler : MonoBehaviour
     Vector3 pegBoardTargetPosition;
     Image setupImage;
     Image punchlineImage;
+
+    string[] offlineReactions = new string[]{
+                "hahaha", "meh", "good one!", "not bad", "clever!", "nice try", "almost", "what a punchline", "seen better", "ouch", "interesting"
+            };
 
     private void Awake()
     {
@@ -78,6 +84,7 @@ public class JokeHandler : MonoBehaviour
         setupBubble.gameObject.SetActive(false);
         hint1.gameObject.SetActive(false);
         hint2.gameObject.SetActive(false);
+        errorText.transform.parent.gameObject.SetActive(false);
         foreach (var t in reactionTexts)
         {
             t.gameObject.SetActive(false);
@@ -104,10 +111,11 @@ public class JokeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if (canSubmit)
             {
+                errorText.transform.parent.gameObject.SetActive(false);
                 canSubmit = false;
                 punchlineInputField.interactable = false;
                 pegKeyboard.StopScanning();
@@ -235,17 +243,12 @@ public class JokeHandler : MonoBehaviour
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
-        //        yield break;
+        //yield return new WaitForSeconds(3);
         yield return request.SendWebRequest();
         Debug.Log("Status Code: " + request.responseCode);
         int rating = 5;
         string[] reactions = new string[] { "eyy", "huh", "hmmm" };
-        if (request.result != UnityWebRequest.Result.Success)
-        {
-            // Improvise
-            yield break;
-        }
-        else
+        if (request.result == UnityWebRequest.Result.Success)
         {
             var responseBody = request.downloadHandler.text;
             Debug.Log(responseBody);
@@ -255,6 +258,21 @@ public class JokeHandler : MonoBehaviour
             reactions[0] = split[1];
             reactions[1] = split[2];
             reactions[2] = split[3];
+        }
+        else
+        {
+            errorText.transform.parent.gameObject.SetActive(true);
+            errorText.text = request.error.ToString();
+            var uniqueChars = CountUniqueCharacters(punchline);
+            Debug.Log(uniqueChars);
+            var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length,6, 30);
+            Debug.Log(ratio);
+            rating = (int)Mathf.Clamp(Mathf.Round(ratio * 10) - 1.5f + UnityEngine.Random.value * 3, 0, 10);
+            Debug.Log(rating);
+            Shuffle(offlineReactions);
+            reactions[0] = offlineReactions[0];
+            reactions[1] = offlineReactions[2];
+            reactions[2] = offlineReactions[1];
         }
 
         Utils.TweenColor(ratingText, Color.white);
@@ -319,5 +337,15 @@ public class JokeHandler : MonoBehaviour
             }
         }
         return hash;
+    }
+
+    private static int CountUniqueCharacters(string input)
+    {
+        HashSet<char> uniqueChars = new HashSet<char>();
+        foreach (char c in input)
+        {
+            uniqueChars.Add(c);
+        }
+        return uniqueChars.Count;
     }
 }
