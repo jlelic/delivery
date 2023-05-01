@@ -135,6 +135,7 @@ public class JokeHandler : MonoBehaviour
             }
             else if (canContinue)
             {
+                canContinue = false;
                 enterToContinue.gameObject.SetActive(false);
                 Utils.TweenColor(ratingText, Utils.ClearWhite);
                 Utils.TweenColor(punchlineImage, Utils.ClearWhite);

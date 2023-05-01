@@ -111,7 +111,7 @@ public class MusicMixer : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void PlayNextNote(float pitch =1f)
+    public void PlayNextNote(float pitch = 1f)
     {
         var noteSource = noteSources[currentNoteSourceIndex];
         currentNoteSourceIndex = 1 - currentNoteSourceIndex;
@@ -156,11 +156,11 @@ public class MusicMixer : MonoBehaviour
 
     public void HandleRatingReceived(int rating)
     {
-        if (rating <= 1)
+        if (rating <= 2)
         {
             QueueLower();
         }
-        else if (rating >= 4)
+        else if (rating >= 6)
         {
             QueueHigher();
         }
