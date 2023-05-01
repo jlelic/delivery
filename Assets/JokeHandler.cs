@@ -12,6 +12,8 @@ public class JokeHandler : MonoBehaviour
     [SerializeField]
     GameObject setupBubble;
     [SerializeField]
+    GameObject setupTail;
+    [SerializeField]
     TMP_Text setupText;
     [SerializeField]
     TMP_InputField punchlineInputField;
@@ -54,6 +56,7 @@ public class JokeHandler : MonoBehaviour
     Vector2 scoreBarTargetPosition;
     Vector3 pegBoardTargetPosition;
     Image setupImage;
+    SpriteRenderer setupTailImage;
     Image punchlineImage;
 
     string[] offlineReactions = new string[]{
@@ -79,6 +82,7 @@ public class JokeHandler : MonoBehaviour
         scoreBarRectTransform = scoreBar.GetComponent<RectTransform>();
         scoreBarTargetPosition = scoreBarRectTransform.anchoredPosition;
         setupImage = setupBubble.GetComponent<Image>();
+        setupTailImage = setupTail.GetComponent<SpriteRenderer>();
         punchlineImage = punchlineInputField.GetComponent<Image>();
         scoreBar.gameObject.SetActive(false);
         setupBubble.gameObject.SetActive(false);
@@ -135,6 +139,7 @@ public class JokeHandler : MonoBehaviour
                 Utils.TweenColor(punchlineText, Utils.ClearWhite);
                 Utils.TweenColor(setupImage, Utils.ClearWhite);
                 Utils.TweenColor(setupText, Utils.ClearWhite);
+                Utils.TweenColor(setupTailImage, Utils.ClearWhite);
                 foreach (var t in reactionTexts)
                 {
                     if (t.gameObject.activeInHierarchy)
@@ -265,7 +270,7 @@ public class JokeHandler : MonoBehaviour
             errorText.text = request.error.ToString();
             var uniqueChars = CountUniqueCharacters(punchline);
             Debug.Log(uniqueChars);
-            var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length,6, 30);
+            var ratio = (float)uniqueChars / Mathf.Clamp(punchline.Length, 6, 30);
             Debug.Log(ratio);
             rating = (int)Mathf.Clamp(Mathf.Round(ratio * 10) - 1.5f + UnityEngine.Random.value * 3, 0, 10);
             Debug.Log(rating);
